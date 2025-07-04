@@ -22,7 +22,29 @@ offset_bottom = 23.0
 grow_horizontal = 2
 text = "Shop generator configuration"
 
-[node name="Stats" type="VBoxContainer" parent="."]
+[node name="Tree" type="Tree" parent="."]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_left = 23.0
+offset_top = 40.0
+offset_right = 138.0
+offset_bottom = 124.0
+columns = 2
+hide_root = true
+
+[node name="AddStat" type="Button" parent="."]
+layout_mode = 0
+offset_left = 230.0
+offset_top = 42.0
+offset_right = 303.0
+offset_bottom = 73.0
+text = "Add stat"
+
+[node name="StatName" type="LineEdit" parent="."]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 158.0
+offset_top = 42.0
+offset_right = 226.562
+offset_bottom = 73.0
+
+[connection signal="pressed" from="AddStat" to="." method="add_stat"]

@@ -1,4 +1,7 @@
-extends PopupPanel
+@tool
+extends Control
+@onready var tree: Tree = $Tree
+
 func add_stat():
 	print("add_stat")
 	var stats:Array=ProjectSettings.get_setting("shop_generator/stats")
@@ -8,4 +11,13 @@ func add_stat():
 	var new_stat=Label.new()
 	new_stat.name=%StatName.text
 	new_stat.text=%StatName.text
-	$Control/Stats.add_child(new_stat)
+	%StatName.text=""
+	make_tree()
+
+func _ready() -> void:
+	make_tree()
+
+func make_tree():
+	tree.clear()
+	tree.create_item()
+	var stats:=tree.create_item()
