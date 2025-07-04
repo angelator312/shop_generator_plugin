@@ -1,0 +1,70 @@
+[gd_scene load_steps=3 format=3 uid="uid://q4xmx0dht08"]
+
+[ext_resource type="Script" uid="uid://b72cvjss4sp3t" path="res://shop/shop.gd" id="1_100s2"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_100s2"]
+font_size = 52
+
+[node name="Shop" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_100s2")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 0
+offset_left = 3.0
+offset_right = 1154.0
+offset_bottom = 648.0
+theme_override_constants/margin_left = 75
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 75
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="Main name" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Shop"
+label_settings = SubResource("LabelSettings_100s2")
+horizontal_alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 300
+theme_override_constants/margin_right = 300
+
+[node name="ContainerOfButtons" type="VBoxContainer" parent="MarginContainer/VBoxContainer/MarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="Quit" type="Button" parent="."]
+layout_mode = 0
+offset_left = 1056.0
+offset_top = 548.0
+offset_right = 1098.0
+offset_bottom = 579.0
+text = "Quit"
+
+[node name="add 1000 money" type="Button" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 494.0
+offset_top = 580.0
+offset_right = 630.0
+offset_bottom = 611.0
+text = "add 1000 money"
+
+[node name="Tree" type="Tree" parent="."]
+layout_mode = 2
+offset_left = 798.0
+offset_top = 70.0
+offset_right = 1101.0
+offset_bottom = 369.0
+hide_root = true
+
+[connection signal="pressed" from="Quit" to="." method="_on_quit_pressed"]
+[connection signal="pressed" from="add 1000 money" to="." method="on_add_1000_money_pressed"]

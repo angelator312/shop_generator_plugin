@@ -1,0 +1,30 @@
+[gd_scene load_steps=6 format=3 uid="uid://cww7wjw00smap"]
+
+[ext_resource type="Script" uid="uid://cd5jorci4fimr" path="res://shop_configuration/shop_configuration.gd" id="1_i30d2"]
+[ext_resource type="Script" uid="uid://oj8mdlv4gqlk" path="res://resource/templates/shop_resource.gd" id="2_2j44g"]
+[ext_resource type="Script" uid="uid://cd5blcra1lyk1" path="res://resource/templates/shop_resource_child.gd" id="3_nmqec"]
+
+[sub_resource type="Resource" id="Resource_ls548"]
+script = ExtResource("3_nmqec")
+textInMe = "add 1 speed"
+thingItDo = Dictionary[int, float]({})
+price = 0
+final = false
+dependencies = Dictionary[int, int]({})
+metadata/_custom_type_script = "uid://cd5blcra1lyk1"
+
+[sub_resource type="Resource" id="Resource_3v8vo"]
+script = ExtResource("2_2j44g")
+children = Array[ExtResource("3_nmqec")]([SubResource("Resource_ls548")])
+type = 0
+metadata/_custom_type_script = "uid://oj8mdlv4gqlk"
+
+[node name="ShopConfiguration" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_i30d2")
+shop_upgrades_graph = Array[ExtResource("2_2j44g")]([SubResource("Resource_3v8vo")])
