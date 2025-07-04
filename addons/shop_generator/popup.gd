@@ -1,7 +1,7 @@
 @tool
 extends Control
 @onready var tree: Tree = $Tree
-const DOCUMENT_EDIT_ICON :Texture2D= preload("res://addons/shop_generator/e-icon.png")
+#const DOCUMENT_EDIT_ICON :Texture2D= preload("res://addons/shop_generator/e-icon.png")
 func add_stat():
 	print("add_stat")
 	var stats=ProjectSettings.get_setting("shop_generator/stats",[])
@@ -27,7 +27,6 @@ func make_tree(st:Array):
 	for e in st:
 		var new=stats.create_child()
 		new.set_text(0,str(e))
-		new.add_button(0,DOCUMENT_EDIT_ICON)
 		new.set_editable(0,true)
 	tree.size.y=(st.size()+1)*160/5
 
