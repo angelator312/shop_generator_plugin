@@ -1,0 +1,55 @@
+[gd_scene load_steps=2 format=3 uid="uid://cg5cp3cgle5wq"]
+
+[ext_resource type="Script" uid="uid://c6tffwmyg44hh" path="res://addons/shop_generator/popup.gd" id="1_j2t4s"]
+
+[node name="ShopScreenGenerator" type="PopupPanel"]
+size = Vector2i(741, 427)
+visible = true
+script = ExtResource("1_j2t4s")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 737.0
+offset_bottom = 423.0
+
+[node name="Label" type="Label" parent="Control"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -114.0
+offset_right = 114.0
+offset_bottom = 23.0
+grow_horizontal = 2
+text = "Shop generator configuration"
+
+[node name="Stats" type="VBoxContainer" parent="Control"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -56.5
+offset_right = 125.0
+offset_bottom = 29.5
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="Control/Stats"]
+layout_mode = 2
+text = "Stats:"
+
+[node name="StatName" type="LineEdit" parent="Control/Stats"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="AddStat" type="Button" parent="Control/Stats/StatName"]
+unique_name_in_owner = true
+layout_mode = 2
+offset_left = 125.0
+offset_right = 197.0
+offset_bottom = 31.0
+text = "add stat"
+
+[connection signal="pressed" from="Control/Stats/StatName/AddStat" to="." method="add_stat"]
