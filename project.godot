@@ -25,3 +25,7 @@ GlobalLocalization="*res://globals/GlobalLocalization.gd"
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/kenyoni/plugin_reloader/plugin.cfg", "res://addons/shop_generator/plugin.cfg")
+
+[shop_generator]
+
+stats=["s2", "2"]
