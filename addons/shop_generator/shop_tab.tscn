@@ -46,6 +46,23 @@ offset_top = 42.0
 offset_right = 252.562
 offset_bottom = 73.0
 
+[node name="ShopPath" type="LineEdit" parent="."]
+layout_mode = 0
+offset_left = 450.0
+offset_top = 42.0
+offset_right = 686.0
+offset_bottom = 73.0
+placeholder_text = "Shop Directory without res://"
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 0
+offset_left = 702.0
+offset_top = 42.0
+offset_right = 825.0
+offset_bottom = 73.0
+text = "Generate Shop"
+
 [connection signal="button_clicked" from="Tree" to="." method="_on_tree_button_clicked"]
 [connection signal="item_edited" from="Tree" to="." method="_on_tree_item_edited"]
 [connection signal="pressed" from="AddStat" to="." method="add_stat"]
+[connection signal="editing_toggled" from="ShopPath" to="." method="_on_line_edit_editing_toggled"]

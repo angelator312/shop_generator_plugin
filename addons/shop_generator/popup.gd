@@ -3,6 +3,7 @@ extends Control
 @onready var tree: Tree = $Tree
 const DELETE_BUTTON = preload("res://addons/shop_generator/delete_button.png")
 #const DOCUMENT_EDIT_ICON :Texture2D= preload("res://addons/shop_generator/e-icon.png")
+var regex_str="res://"
 func add_stat():
 	print("add_stat")
 	var stats=ProjectSettings.get_setting("shop_generator/stats",[])
@@ -63,3 +64,9 @@ func _on_tree_button_clicked(item: TreeItem, column: int, id: int, mouse_button_
 	stats.remove_at(id)
 	ProjectSettings.set_setting("shop_generator/stats",stats)
 	make_tree(stats)
+
+
+func _on_line_edit_editing_toggled(toggled_on: bool) -> void:
+	if toggled_on:return
+	$ShopPath.text=$ShopPath.text.replace(regex_str,"")
+	print($ShopPath.text)
