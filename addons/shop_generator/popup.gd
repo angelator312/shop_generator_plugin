@@ -1,6 +1,7 @@
 @tool
 extends Control
 @onready var tree: Tree = $Tree
+const DELETE_BUTTON = preload("res://addons/shop_generator/delete_button.png")
 #const DOCUMENT_EDIT_ICON :Texture2D= preload("res://addons/shop_generator/e-icon.png")
 func add_stat():
 	print("add_stat")
@@ -24,11 +25,15 @@ func make_tree(st:Array):
 	tree.create_item()
 	var stats:=tree.create_item()
 	stats.set_text(0,"Stats:")
+	var i:=0
 	for e in st:
 		var new=stats.create_child()
 		new.set_text(0,str(e))
+		new.add_button(0,DELETE_BUTTON,i,false,"delete stat")
 		new.set_editable(0,true)
-	tree.size.y=(st.size()+1)*160/5
+		i+=1
+	
+	tree.size.y=(st.size())*41+41
 
 
 #func _on_tree_button_clicked(item: TreeItem, column: int, id: int, mouse_button_index: int) -> void:
@@ -51,4 +56,10 @@ func _on_tree_item_edited() -> void:
 		else:
 			e.set_text(0,stats_arr[i])
 		i+=1
-	pass # Replace with function body.
+
+
+func _on_tree_button_clicked(item: TreeItem, column: int, id: int, mouse_button_index: int) -> void:
+	var stats:Array=ProjectSettings.get_setting("shop_generator/stats",[])
+	stats.remove_at(id)
+	ProjectSettings.set_setting("shop_generator/stats",stats)
+	make_tree(stats)

@@ -28,4 +28,4 @@ enabled=PackedStringArray("res://addons/kenyoni/plugin_reloader/plugin.cfg", "re
 
 [shop_generator]
 
-stats=["s2", "2s"]
+stats=["ss2", "ssss2"]
