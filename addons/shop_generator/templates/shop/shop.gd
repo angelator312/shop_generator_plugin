@@ -3,23 +3,37 @@ extends Control
 @onready var buttonScene=preload("button/button.tscn")
 var shop_resources:shop_objects
 const BROI_ON_SCREEN=3
-
+var _stats:Dictionary[String,String]={
+	"Money multiplayer":"money_multiplayer",
+	"Money":"money",
+	"Speed":"player_speed",
+	"Max HP":"max_player_health",
+	"Damage Multiplication":"attack_damage_umn"
+}#TEMPLATE:STATS
+var stats_values:=_stats.values()
+var stats_keys:=_stats.keys()
+var stats_size:=_stats.size()
 func set_static_labels():
 	var tree:Tree=$Tree
 	#print(tree.get_first_child())
 	var root:TreeItem=tree.get_root()
 	var stats_child:TreeItem=root.get_first_child()
-	var money_child:TreeItem=stats_child.get_first_child()
-	var money_multiplayer_child:TreeItem=money_child.get_next()
-	var speed_child:TreeItem=money_multiplayer_child.get_next()
-	var max_health_child:TreeItem=speed_child.get_next()
-	var damage_multiplication_child:TreeItem=max_health_child.get_next()
+	var last_child:=stats_child.get_first_child()
+	for e in range(stats_size):
+		last_child.set_text(0,stats_keys[e]+":"+str(GlobalVariables.shop_stats.get(stats_values[e])))
+		last_child=last_child.get_next()
 	stats_child.set_text(0,"Stats")
-	money_child.set_text(0,"Money:"+str(GlobalVariables.shop_stats.money))
-	money_multiplayer_child.set_text(0,"Money multiplayer:"+str(GlobalVariables.shop_stats.money_multiplayer))
-	speed_child.set_text(0,"Speed:"+str(GlobalVariables.shop_stats.player_speed))
-	max_health_child.set_text(0,"Max HP:"+str(GlobalVariables.shop_stats.max_player_health))
-	damage_multiplication_child.set_text(0,"Damage Multiplication:"+str(GlobalVariables.shop_stats.attack_damage_umn))
+	#var money_child:TreeItem=stats_child.get_first_child()
+	#var money_multiplayer_child:TreeItem=money_child.get_next()
+	#var speed_child:TreeItem=money_multiplayer_child.get_next()
+	#var max_health_child:TreeItem=speed_child.get_next()
+	#var damage_multiplication_child:TreeItem=max_health_child.get_next()
+	#stats_child.set_text(0,"Stats")
+	#money_child.set_text(0,"Money:"+str(GlobalVariables.shop_stats.money))
+	#money_multiplayer_child.set_text(0,"Money multiplayer:"+str(GlobalVariables.shop_stats.get("money_multiplayer")))
+	#speed_child.set_text(0,"Speed:"+str(GlobalVariables.shop_stats.player_speed))
+	#max_health_child.set_text(0,"Max HP:"+str(GlobalVariables.shop_stats.max_player_health))
+	#damage_multiplication_child.set_text(0,"Damage Multiplication:"+str(GlobalVariables.shop_stats.attack_damage_umn))
 
 func make_static_labels():
 	var tree:Tree=$Tree
@@ -28,17 +42,20 @@ func make_static_labels():
 	var stats_child:TreeItem=tree.create_item()
 	stats_child=tree.create_item(stats_child)
 	stats_child.collapsed=true
-	var money_child:TreeItem=tree.create_item(stats_child)
-	var money_multiplayer_child:TreeItem=tree.create_item(stats_child)
-	var speed_child:TreeItem=tree.create_item(stats_child)
-	var max_health_child:TreeItem=tree.create_item(stats_child)
-	var damage_multiplication_child:TreeItem=tree.create_item(stats_child)
+	for e in stats_size:
+		var child:TreeItem=tree.create_item(stats_child)
+		child.set_text(0,stats_keys[e]+":"+str(GlobalVariables.shop_stats.get(stats_values[e])))
 	stats_child.set_text(0,"Stats")
-	money_child.set_text(0,"Money:"+str(GlobalVariables.shop_stats.money))
-	money_multiplayer_child.set_text(0,"Money multiplayer:"+str(GlobalVariables.shop_stats.money_multiplayer))
-	speed_child.set_text(0,"Speed:"+str(GlobalVariables.shop_stats.player_speed))
-	max_health_child.set_text(0,"Max HP:"+str(GlobalVariables.shop_stats.max_player_health))
-	damage_multiplication_child.set_text(0,"Damage Multiplication:"+str(GlobalVariables.shop_stats.attack_damage_umn))
+	#var money_child:TreeItem=tree.create_item(stats_child)
+	#var money_multiplayer_child:TreeItem=tree.create_item(stats_child)
+	#var speed_child:TreeItem=tree.create_item(stats_child)
+	#var max_health_child:TreeItem=tree.create_item(stats_child)
+	#var damage_multiplication_child:TreeItem=tree.create_item(stats_child)
+	#money_child.set_text(0,"Money:"+str(GlobalVariables.shop_stats.money))
+	#money_multiplayer_child.set_text(0,"Money multiplayer:"+str(GlobalVariables.shop_stats.money_multiplayer))
+	#speed_child.set_text(0,"Speed:"+str(GlobalVariables.shop_stats.player_speed))
+	#max_health_child.set_text(0,"Max HP:"+str(GlobalVariables.shop_stats.max_player_health))
+	#damage_multiplication_child.set_text(0,"Damage Multiplication:"+str(GlobalVariables.shop_stats.attack_damage_umn))
 	for e in GlobalVariables.all_items_sz:
 		var weapon_resource:=GlobalVariables.all_items[e]
 		var first_weapon=tree.create_item()
@@ -106,7 +123,7 @@ func call_to_all_buttons(resource:shop_resource_child,type:GlobalTypes.types_of_
 		var e=resource.thingItDo.keys()[i]
 		GlobalFunctions.interpretate_thing_it_do(e,resource.thingItDo.values()[i])
 	#money=money-price
-	GlobalVariables.shop_stats.change_money(resource.price,GlobalFunctions.sub)
+	GlobalVariables.shop_stats.money-=resource.price
 	#print
 	#print(GlobalVariables.cpu_speed)
 	#print(GlobalVariables.money_multiplayer)
@@ -137,7 +154,7 @@ func _on_quit_pressed() -> void:
 	#TEMPLATE:CHANGE_SCENE
 func on_add_1000_money_pressed():
 	if OS.is_debug_build():
-		GlobalVariables.shop_stats.change_money(1000,GlobalFunctions.add)
+		GlobalVariables.shop_stats.money+=1000
 		update_buttons_of_deals()
 	set_static_labels()
 
