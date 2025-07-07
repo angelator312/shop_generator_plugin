@@ -53,21 +53,24 @@ offset_top = 42.0
 offset_right = 686.0
 offset_bottom = 73.0
 placeholder_text = "Shop Directory without res://"
+expand_to_text_length = true
 
 [node name="Generate" type="Button" parent="."]
 layout_mode = 0
-offset_left = 702.0
+offset_left = 958.0
 offset_top = 42.0
-offset_right = 825.0
+offset_right = 1081.0
 offset_bottom = 73.0
 text = "Generate Shop"
 
 [node name="ResourcePath" type="LineEdit" parent="."]
-offset_left = 454.0
+layout_mode = 0
+offset_left = 450.0
 offset_top = 91.0
-offset_right = 690.0
+offset_right = 686.0
 offset_bottom = 122.0
 placeholder_text = "Resources Dir without res://"
+expand_to_text_length = true
 
 [connection signal="button_clicked" from="Tree" to="." method="_on_tree_button_clicked"]
 [connection signal="item_edited" from="Tree" to="." method="_on_tree_item_edited"]
