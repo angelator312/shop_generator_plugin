@@ -3,13 +3,7 @@ extends Control
 @onready var buttonScene=preload("button/button.tscn")
 var shop_resources:shop_objects
 const BROI_ON_SCREEN=3
-var _stats:Dictionary[String,String]={
-	"Money multiplayer":"money_multiplayer",
-	"Money":"money",
-	"Speed":"player_speed",
-	"Max HP":"max_player_health",
-	"Damage Multiplication":"attack_damage_umn"
-}#TEMPLATE:STATS
+var _stats:Dictionary[String,String]#TEMPLATE:STATS
 var stats_values:=_stats.values()
 var stats_keys:=_stats.keys()
 var stats_size:=_stats.size()

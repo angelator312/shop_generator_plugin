@@ -70,11 +70,14 @@ func _on_line_edit_editing_toggled(toggled_on: bool) -> void:
 	if toggled_on:return
 	$ShopPath.text=$ShopPath.text.replace(regex_str,"")
 	print($ShopPath.text)
+	
 
 const path_for_addon:="res://addons/shop_generator/"
-
+const path_for_shop=path_for_addon+"templates/shop/"
 func _on_generate_pressed() -> void:
+	var path_for_new_shop:String="res://"+$ShopPath.text
+	var path_for_new_shop_script:=path_for_new_shop+"shop.gd"
 	DirAccess.make_dir_recursive_absolute("res://"+$ShopPath.text)
-	DirAccess.copy_absolute(path_for_addon+"templates/shop","res://"+$ShopPath.text)
+	DirAccess.copy_absolute(path_for_shop,"res://"+$ShopPath.text)
 	DirAccess.copy_absolute(path_for_addon+"templates/resources","res://"+$ResourcePath.text)
-	
+	var shop_file=FileAccess.open(path_for_new_shop_script,FileAccess.READ_WRITE)
