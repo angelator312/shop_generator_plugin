@@ -1,6 +1,6 @@
 extends Control
 @onready var containerOfButtons=%ContainerOfButtons
-@onready var buttonScene=preload("res://button/button.tscn")
+@onready var buttonScene=preload("button/button.tscn")
 var shop_resources:shop_objects
 const BROI_ON_SCREEN=3
 
@@ -134,7 +134,7 @@ func depending_true(res:shop_resource_child):
 
 func _on_quit_pressed() -> void:
 	GlobalFunctions.save_shop_resources(shop_resources)
-	# TODO: Change scene  
+	#TEMPLATE:CHANGE_SCENE
 func on_add_1000_money_pressed():
 	if OS.is_debug_build():
 		GlobalVariables.shop_stats.change_money(1000,GlobalFunctions.add)
@@ -144,9 +144,9 @@ func on_add_1000_money_pressed():
 func load_shop_resources():
 	var ld=GlobalFunctions.load_resource(GlobalLocalization.file_name_of_shop);# false or the resource
 	if !ld:
-		var shop_resources=shop_objects.new()
-		shop_resources.resources_at_screen=preload(GlobalLocalization.scene_of_configuration).instantiate().shop_upgrades_graph
-		shop_resources.init()
-		return shop_resources
+		var shop_resources_tmp=shop_objects.new()
+		shop_resources_tmp.resources_at_screen=preload("shop_configuration/shop_configuration.tscn").instantiate().shop_upgrades_graph
+		shop_resources_tmp.init()
+		return shop_resources_tmp
 	else:
 		return ld
