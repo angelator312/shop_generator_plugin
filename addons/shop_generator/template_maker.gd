@@ -16,11 +16,11 @@ func fill_template()->String:
 	return filled_template
 
 class VariableTemplater:
-	var template:="@export var name:type=default"
+	var template:="@export var name:type"
 	var filled_template:String
-	func fill_template(var_name:String,default_var,type_of_var:="")->String:
+	func fill_template(var_name:String,type_of_var:String)->String:
 		filled_template=template
 		filled_template=filled_template.replace("name",var_name)
-		filled_template=filled_template.replace("default",str(default_var))
+		#filled_template=filled_template.replace("default",str(default_var))
 		filled_template=filled_template.replace("type",type_of_var)
 		return filled_template

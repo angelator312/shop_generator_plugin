@@ -92,7 +92,6 @@ func _on_line_edit_editing_toggled(toggled_on: bool) -> void:
 	if toggled_on:return
 	$ShopPath.text=$ShopPath.text.replace(regex_str,"")
 	print($ShopPath.text)
-	
 
 #Generate:
 
@@ -108,22 +107,21 @@ func _on_generate_pressed() -> void:
 	copy_dir_recursively(path_for_addon+"templates/resources/","res://"+resources_path_now)
 	
 	var shop_file:=FileAccess.open(path_for_new_shop_script,FileAccess.READ_WRITE)
-	var stats_names:Array=ProjectSettings.get_setting(project_setting_for_stats_name,[]) as Array[String]
+	var stats_names:Array=ProjectSettings.get_setting(project_setting_for_stats_name,[])
+	var stats_types:Array=ProjectSettings.get_setting(project_setting_for_stat_types,[])
 	var stats_variable_names:Array=stats_names.map(func(el:String):return el.replace(" ","_").to_lower())
 	var shop_template:=Templater.new(shop_file.get_as_text(),{
 		"STATS_KEYS":'=["'+'","'.join(stats_names)+'"]',"STATS_VALUES":'=["'+'","'.join(stats_variable_names)+'"]'})
 	shop_file.store_string(shop_template.filled_template)
 	shop_file.close()
 	
-	var callab=func(el:String):
-		var tmp:=Templater.VariableTemplater.new()
-		tmp.fill_template(el,'""')
-		print("var_params:",el,",","")
-		print("var:",tmp.filled_template)
-		return tmp.filled_template
-		
 	var shop_stats_file:=FileAccess.open(new_shop_stats_path,FileAccess.READ_WRITE)
-	var variable_arr:Array=stats_variable_names.map(callab)
+	var variable_arr:=[]
+	
+	for idx in stats_names.size():
+		var a:=Templater.VariableTemplater.new()
+		a.fill_template(stats_names[idx],arr_of_types[stats_types[idx]])
+		variable_arr.push_back(a.filled_template)
 	var shop_stats_template:=Templater.new(shop_stats_file.get_as_text(),{
 		#"ITEMS_SZ":"" - turn items on
 		#"ITEMS":"=[''...]" - set items
