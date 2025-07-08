@@ -103,6 +103,7 @@ func _on_generate_pressed() -> void:
 	var path_to_shop_objects:=path_for_new_resources+"shop_objects.gd"
 	var path_to_shop_resource:=path_for_new_resources+"shop_resource.gd"
 	var path_to_shop_resource_child:=path_for_new_resources+"shop_resource_child.gd"
+	var path_to_item:=path_for_new_resources+"Item.gd"
 	
 	DirAccess.make_dir_recursive_absolute("res://"+shop_path_now)
 	DirAccess.make_dir_recursive_absolute(path_for_new_resources)
@@ -110,6 +111,7 @@ func _on_generate_pressed() -> void:
 	copy_dir_recursively(path_for_resources,path_for_new_resources)
 	
 	#Small templates:
+	use_template_on(path_to_item,{})
 	use_template_on(path_to_button_script,{})
 	use_template_on(path_to_shop_objects,{})
 	use_template_on(path_to_shop_resource,{})
