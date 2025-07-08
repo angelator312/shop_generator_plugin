@@ -63,6 +63,7 @@ func _on_tree_item_edited() -> void:
 	var stats=tree.get_root().get_first_child()
 	var i:=0
 	var stats_arr:Array=ProjectSettings.get_setting(project_setting_for_stats_name,[])
+	var stats_types:Array=ProjectSettings.get_setting(project_setting_for_stat_types,[])
 	var find_custom=func (a:int,s:String):
 		var i2=stats_arr.find(s)
 		if i2==a:
@@ -73,6 +74,7 @@ func _on_tree_item_edited() -> void:
 			stats_arr[i]=e.get_text(0)
 		else:
 			e.set_text(0,stats_arr[i])
+		stats_types[i]=e.get_range(1)
 		i+=1
 
 func _on_tree_button_clicked(item: TreeItem, column: int, id: int, mouse_button_index: int) -> void:
