@@ -7,6 +7,7 @@ var filled_template:String
 func _init(a:String,temp:Dictionary[String,String]) -> void:
 	template=a
 	template_variables=temp
+	template_variables.get_or_add("IS_TEMPLATE","")
 
 func fill_template()->String:
 	filled_template=template

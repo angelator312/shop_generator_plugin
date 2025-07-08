@@ -3,12 +3,13 @@ extends Control
 @onready var tree: Tree = $Tree
 const DELETE_BUTTON = preload("res://addons/shop_generator/delete_button.png")
 #const DOCUMENT_EDIT_ICON :Texture2D= preload("res://addons/shop_generator/e-icon.png")
+const path_for_addon:="res://addons/shop_generator/"
 const project_setting_for_stats_name:="shop_generator/stats"
 const project_setting_for_stat_types:="shop_generator/stat_types"
 const shop_path_default="shop/"
 const resources_path_default="resources/"
-const path_for_addon:="res://addons/shop_generator/"
 const path_for_shop=path_for_addon+"templates/shop/"
+const path_for_resources=path_for_addon+"templates/resources/"
 var regex_str="res://"
 const arr_of_types:Array[String]=["Vector2","float","int","String"]
 func add_stat():
@@ -97,18 +98,30 @@ func _on_generate_pressed() -> void:
 	var path_for_new_shop:String="res://"+shop_path_now
 	var new_shop_stats_path="res://"+resources_path_now+"shop_stats.gd"
 	var path_for_new_shop_script:=path_for_new_shop+"shop.gd"
-	DirAccess.make_dir_recursive_absolute("res://"+shop_path_now)
-	DirAccess.make_dir_recursive_absolute(path_for_addon+"templates/resources/")
-	copy_dir_recursively(path_for_shop,"res://"+shop_path_now)
-	copy_dir_recursively(path_for_addon+"templates/resources/","res://"+resources_path_now)
+	var path_to_button_script:=path_for_shop+"button/button.gd"
+	var path_to_shop_objects:=path_for_resources+"shop_objects.gd"
+	var path_to_shop_resource:=path_for_resources+"shop_resource.gd"
+	var path_to_shop_resource_child:=path_for_resources+"shop_resource_child.gd"
 	
+	DirAccess.make_dir_recursive_absolute("res://"+shop_path_now)
+	DirAccess.make_dir_recursive_absolute(path_for_resources)
+	copy_dir_recursively(path_for_shop,"res://"+shop_path_now)
+	copy_dir_recursively(path_for_resources,"res://"+resources_path_now)
+	
+	#Small templates:
+	use_template_on(path_to_button_script,{})
+	use_template_on(path_to_shop_objects,{})
+	use_template_on(path_to_shop_resource,{})
+	use_template_on(path_to_shop_resource_child,{})
+	
+	#Shop.gd:
 	var stats_names:Array=ProjectSettings.get_setting(project_setting_for_stats_name,[])
 	var stats_types:Array=ProjectSettings.get_setting(project_setting_for_stat_types,[])
 	var stats_variable_names:Array=stats_names.map(func(el:String):return el.replace(" ","_").to_lower())
 	use_template_on(path_for_new_shop_script,{
 		"STATS_KEYS":'=["'+'","'.join(stats_names)+'"]',"STATS_VALUES":'=["'+'","'.join(stats_variable_names)+'"]'})
 	
-	#var shop_stats_file:=FileAccess.open(new_shop_stats_path,FileAccess.READ_WRITE)
+	#ShopStats.gd:
 	var variable_arr:=[]
 	
 	for idx in stats_names.size():
@@ -137,11 +150,10 @@ func copy_dir_recursively(source: String, destination: String):
 		self.copy_dir_recursively(source + dir + "/", destination + dir + "/")
 
 func use_template_on(path_to_file:String,template_vars:Dictionary[String,String])->void:
-	var shop_file:=FileAccess.open(path_to_file,FileAccess.READ_WRITE)
-	var shop_template:=Templater.new(shop_file.get_as_text(),template_vars)
-	shop_template.fill_template()
-	shop_file.store_string(shop_template.filled_template)
-	shop_file.close()
+	var template:GDScript=load(path_to_file)
+	var shop_template:=Templater.new(template.source_code,template_vars)
+	template.source_code=shop_template.fill_template()
+	ResourceSaver.save(template,path_to_file)
 
 
 func _on_delete_pressed() -> void:
@@ -153,7 +165,6 @@ func _on_delete_pressed() -> void:
 func remove_dir_recursively(path:String)->void:
 	var source_dir:=DirAccess.open(path)
 	for filename in source_dir.get_files():
-		if filename.ends_with(".uid"):continue
 		source_dir.remove(path + filename)
 	
 	for dir in source_dir.get_directories():

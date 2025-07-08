@@ -1,5 +1,5 @@
 extends Resource
-class_name Item
+#TEMPLATE:IS_TEMPLATEclass_name Item
  
 @export var name : String
 @export var texture : Texture2D

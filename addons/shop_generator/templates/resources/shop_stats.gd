@@ -1,5 +1,5 @@
 extends Resource
-class_name ShopStats
+#TEMPLATE:IS_TEMPLATEclass_name ShopStats
 
 #TEMPLATE:VARIABLES
 
