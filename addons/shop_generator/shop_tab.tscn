@@ -101,6 +101,13 @@ popup/item_2/id = 2
 popup/item_3/text = "String"
 popup/item_3/id = 3
 
+[node name="Delete" type="Button" parent="."]
+offset_left = 958.0
+offset_top = 89.0
+offset_right = 1081.0
+offset_bottom = 120.0
+text = "Delete Shop"
+
 [connection signal="button_clicked" from="Tree" to="." method="_on_tree_button_clicked"]
 [connection signal="item_edited" from="Tree" to="." method="_on_tree_item_edited"]
 [connection signal="pressed" from="AddStat" to="." method="add_stat"]
@@ -108,3 +115,4 @@ popup/item_3/id = 3
 [connection signal="pressed" from="Generate" to="." method="_on_generate_pressed"]
 [connection signal="editing_toggled" from="ResourcePath" to="." method="_on_line_edit_editing_toggled"]
 [connection signal="pressed" from="ReloadButton" to="." method="_on_reload_button_pressed"]
+[connection signal="pressed" from="Delete" to="." method="_on_delete_pressed"]
