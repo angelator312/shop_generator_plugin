@@ -85,7 +85,10 @@ func _on_generate_pressed() -> void:
 	copy_dir_recursively(path_for_shop,"res://"+shop_path_now)
 	copy_dir_recursively(path_for_addon+"templates/resources/","res://"+resources_path_now)
 	var shop_file:=FileAccess.open(path_for_new_shop_script,FileAccess.READ_WRITE)
-	var shop_template:=Templater.new(shop_file.get_as_text(),{"STATS_KEYS":'=["proba"]',"STATS_VALUES":"=['proba']"})
+	var stats_names:Array=ProjectSettings.get_setting("shop_generator/stats",[]) as Array[String]
+	var stats_variable_names:Array=stats_names.map(func(el:String):return el.replace(" ","_").to_lower())
+	var shop_template:=Templater.new(shop_file.get_as_text(),{
+		"STATS_KEYS":'=["'+'","'.join(stats_names)+'"]',"STATS_VALUES":'=["'+'","'.join(stats_variable_names)+'"]'})
 	print("filled template:\n",shop_template.fill_template())
 	shop_file.store_string(shop_template.filled_template)
 func copy_dir_recursively(source: String, destination: String):
