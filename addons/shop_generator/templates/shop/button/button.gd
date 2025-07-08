@@ -1,5 +1,5 @@
 extends Button
-class_name ButtonWithResource
+#TEMPLATE:IS_TEMPLATEclass_name ButtonWithResource
 var whoSFunction:=func(_x:shop_resource_child,_type,_node:ButtonWithResource):
 	pass
 var resource:shop_resource

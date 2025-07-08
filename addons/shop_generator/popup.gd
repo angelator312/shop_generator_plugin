@@ -96,17 +96,18 @@ func _on_generate_pressed() -> void:
 	var shop_path_now=$ShopPath.text if $ShopPath.text else shop_path_default
 	var resources_path_now:String=$ResourcePath.text if $ResourcePath.text else resources_path_default
 	var path_for_new_shop:String="res://"+shop_path_now
-	var new_shop_stats_path="res://"+resources_path_now+"shop_stats.gd"
+	var path_for_new_resources:String="res://"+resources_path_now
+	var new_shop_stats_path=path_for_new_resources+"shop_stats.gd"
 	var path_for_new_shop_script:=path_for_new_shop+"shop.gd"
-	var path_to_button_script:=path_for_shop+"button/button.gd"
-	var path_to_shop_objects:=path_for_resources+"shop_objects.gd"
-	var path_to_shop_resource:=path_for_resources+"shop_resource.gd"
-	var path_to_shop_resource_child:=path_for_resources+"shop_resource_child.gd"
+	var path_to_button_script:=path_for_new_shop+"button/button.gd"
+	var path_to_shop_objects:=path_for_new_resources+"shop_objects.gd"
+	var path_to_shop_resource:=path_for_new_resources+"shop_resource.gd"
+	var path_to_shop_resource_child:=path_for_new_resources+"shop_resource_child.gd"
 	
 	DirAccess.make_dir_recursive_absolute("res://"+shop_path_now)
-	DirAccess.make_dir_recursive_absolute(path_for_resources)
+	DirAccess.make_dir_recursive_absolute(path_for_new_resources)
 	copy_dir_recursively(path_for_shop,"res://"+shop_path_now)
-	copy_dir_recursively(path_for_resources,"res://"+resources_path_now)
+	copy_dir_recursively(path_for_resources,path_for_new_resources)
 	
 	#Small templates:
 	use_template_on(path_to_button_script,{})
@@ -154,6 +155,7 @@ func use_template_on(path_to_file:String,template_vars:Dictionary[String,String]
 	var shop_template:=Templater.new(template.source_code,template_vars)
 	template.source_code=shop_template.fill_template()
 	ResourceSaver.save(template,path_to_file)
+	print("path:",path_to_file)
 
 
 func _on_delete_pressed() -> void:
