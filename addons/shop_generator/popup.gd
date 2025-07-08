@@ -32,7 +32,6 @@ func _ready() -> void:
 	%Dropdown.clear()
 	for e in arr_of_types:
 		%Dropdown.add_item(e)
-		
 
 #Tree:
 func make_tree(st:Array,st2:Array):
@@ -57,7 +56,6 @@ func make_tree(st:Array,st2:Array):
 
 func _on_reload_button_pressed() -> void:
 	make_tree(ProjectSettings.get_setting(project_setting_for_stats_name,[]),ProjectSettings.get_setting(project_setting_for_stat_types,[]))
-
 
 func _on_tree_item_edited() -> void:
 	var stats=tree.get_root().get_first_child()
@@ -87,14 +85,12 @@ func _on_tree_button_clicked(item: TreeItem, column: int, id: int, mouse_button_
 	make_tree(stats,stats_types)
 
 #Line edit
-
 func _on_line_edit_editing_toggled(toggled_on: bool) -> void:
 	if toggled_on:return
 	$ShopPath.text=$ShopPath.text.replace(regex_str,"")
 	print($ShopPath.text)
 
 #Generate:
-
 func _on_generate_pressed() -> void:
 	var shop_path_now=$ShopPath.text if $ShopPath.text else shop_path_default
 	var resources_path_now:String=$ResourcePath.text if $ResourcePath.text else resources_path_default
