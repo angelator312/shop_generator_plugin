@@ -79,11 +79,12 @@ func _on_generate_pressed() -> void:
 	var path_for_new_shop_script:=path_for_new_shop+"shop.gd"
 	DirAccess.make_dir_recursive_absolute("res://"+$ShopPath.text)
 	DirAccess.make_dir_recursive_absolute(path_for_addon+"templates/resources/")
-	#DirAccess.copy_absolute(path_for_shop,"res://"+$ShopPath.text)
+	copy_dir_recursively(path_for_shop,"res://"+$ShopPath.text)
 	copy_dir_recursively(path_for_addon+"templates/resources/","res://"+$ResourcePath.text)
 	var shop_file:=FileAccess.open(path_for_new_shop_script,FileAccess.READ_WRITE)
-	var shop_template:=Templater.new(shop_file.get_as_text(),{"STATS":"STATS"})
-	print("filled template",shop_template.fill_template())
+	var shop_template:=Templater.new(shop_file.get_as_text(),{"STATS_KEYS":'=["proba"]',"STATS_VALUES":"=['proba']"})
+	print("filled template:\n",shop_template.fill_template())
+	shop_file.store_string(shop_template.filled_template)
 func copy_dir_recursively(source: String, destination: String):
 	DirAccess.make_dir_recursive_absolute(destination)
 	

@@ -12,5 +12,5 @@ func fill_template()->String:
 	filled_template=template
 	for e in template_variables:
 		print(e,"->",template_variables[e])
-		filled_template=filled_template.replace(e,template_variables[e])
+		filled_template=filled_template.replace("#TEMPLATE:"+e,template_variables[e])
 	return filled_template
