@@ -77,12 +77,13 @@ const path_for_addon:="res://addons/shop_generator/"
 const path_for_shop=path_for_addon+"templates/shop/"
 func _on_generate_pressed() -> void:
 	var shop_path_now=$ShopPath.text if $ShopPath.text else shop_path_default
+	var resources_path_now:String=$ResourcePath.text if $ResourcePath.text else resources_path_default
 	var path_for_new_shop:String="res://"+shop_path_now
 	var path_for_new_shop_script:=path_for_new_shop+"shop.gd"
 	DirAccess.make_dir_recursive_absolute("res://"+shop_path_now)
 	DirAccess.make_dir_recursive_absolute(path_for_addon+"templates/resources/")
 	copy_dir_recursively(path_for_shop,"res://"+shop_path_now)
-	copy_dir_recursively(path_for_addon+"templates/resources/","res://"+$ResourcePath.text)
+	copy_dir_recursively(path_for_addon+"templates/resources/","res://"+resources_path_now)
 	var shop_file:=FileAccess.open(path_for_new_shop_script,FileAccess.READ_WRITE)
 	var shop_template:=Templater.new(shop_file.get_as_text(),{"STATS_KEYS":'=["proba"]',"STATS_VALUES":"=['proba']"})
 	print("filled template:\n",shop_template.fill_template())
