@@ -3,19 +3,21 @@ extends Control
 @onready var tree: Tree = $Tree
 const DELETE_BUTTON = preload("res://addons/shop_generator/delete_button.png")
 #const DOCUMENT_EDIT_ICON :Texture2D= preload("res://addons/shop_generator/e-icon.png")
+const project_setting_for_stats_name:="shop_generator/stats"
 const shop_path_default="shop/"
 const resources_path_default="resources/"
 const path_for_addon:="res://addons/shop_generator/"
 const path_for_shop=path_for_addon+"templates/shop/"
 var regex_str="res://"
+const arr_of_types:Array[String]=["Vector2","float","int","String"]
 func add_stat():
 	print("add_stat")
-	var stats=ProjectSettings.get_setting("shop_generator/stats",[])
+	var stats=ProjectSettings.get_setting(project_setting_for_stats_name,[])
 	if stats.find(%StatName.text)>-1:
 		%StatName.text=""
 		return
 	stats.push_back(%StatName.text)
-	ProjectSettings.set_setting("shop_generator/stats",stats)
+	ProjectSettings.set_setting(project_setting_for_stats_name,stats)
 	var new_stat=Label.new()
 	new_stat.name=%StatName.text
 	new_stat.text=%StatName.text
@@ -23,8 +25,8 @@ func add_stat():
 	make_tree(stats)
 
 func _ready() -> void:
-	make_tree(ProjectSettings.get_setting("shop_generator/stats",[]))
-
+	_on_reload_button_pressed()
+#Tree:
 func make_tree(st:Array):
 	tree.clear()
 	tree.create_item()
@@ -34,22 +36,24 @@ func make_tree(st:Array):
 	for e in st:
 		var new=stats.create_child()
 		new.set_text(0,str(e))
-		new.add_button(0,DELETE_BUTTON,i,false,"delete stat")
+		new.add_button(1,DELETE_BUTTON,i,false,"delete stat")
 		new.set_editable(0,true)
+		new.set_cell_mode(1, TreeItem.CELL_MODE_RANGE)
+		new.set_text(1, ",".join(arr_of_types))
+		new.set_editable(1, true)
 		i+=1
 	
 	tree.size.y=(st.size())*41+41
+	%ReloadButton.position.y=tree.size.y+tree.position.y+25
 
-
-#func _on_tree_button_clicked(item: TreeItem, column: int, id: int, mouse_button_index: int) -> void:
-	#pass # Replace with function body.
-#
+func _on_reload_button_pressed() -> void:
+	make_tree(ProjectSettings.get_setting(project_setting_for_stats_name,[]))
 
 
 func _on_tree_item_edited() -> void:
 	var stats=tree.get_root().get_first_child()
 	var i:=0
-	var stats_arr:Array=ProjectSettings.get_setting("shop_generator/stats",[])
+	var stats_arr:Array=ProjectSettings.get_setting(project_setting_for_stats_name,[])
 	var find_custom=func (a:int,s:String):
 		var i2=stats_arr.find(s)
 		if i2==a:
@@ -62,19 +66,21 @@ func _on_tree_item_edited() -> void:
 			e.set_text(0,stats_arr[i])
 		i+=1
 
-
 func _on_tree_button_clicked(item: TreeItem, column: int, id: int, mouse_button_index: int) -> void:
-	var stats:Array=ProjectSettings.get_setting("shop_generator/stats",[])
+	var stats:Array=ProjectSettings.get_setting(project_setting_for_stats_name,[])
 	stats.remove_at(id)
-	ProjectSettings.set_setting("shop_generator/stats",stats)
+	ProjectSettings.set_setting(project_setting_for_stats_name,stats)
 	make_tree(stats)
 
+#Line edit
 
 func _on_line_edit_editing_toggled(toggled_on: bool) -> void:
 	if toggled_on:return
 	$ShopPath.text=$ShopPath.text.replace(regex_str,"")
 	print($ShopPath.text)
 	
+
+#Generate:
 
 func _on_generate_pressed() -> void:
 	var shop_path_now=$ShopPath.text if $ShopPath.text else shop_path_default
@@ -88,7 +94,7 @@ func _on_generate_pressed() -> void:
 	copy_dir_recursively(path_for_addon+"templates/resources/","res://"+resources_path_now)
 	
 	var shop_file:=FileAccess.open(path_for_new_shop_script,FileAccess.READ_WRITE)
-	var stats_names:Array=ProjectSettings.get_setting("shop_generator/stats",[]) as Array[String]
+	var stats_names:Array=ProjectSettings.get_setting(project_setting_for_stats_name,[]) as Array[String]
 	var stats_variable_names:Array=stats_names.map(func(el:String):return el.replace(" ","_").to_lower())
 	var shop_template:=Templater.new(shop_file.get_as_text(),{
 		"STATS_KEYS":'=["'+'","'.join(stats_names)+'"]',"STATS_VALUES":'=["'+'","'.join(stats_variable_names)+'"]'})
