@@ -71,15 +71,16 @@ func _on_line_edit_editing_toggled(toggled_on: bool) -> void:
 	$ShopPath.text=$ShopPath.text.replace(regex_str,"")
 	print($ShopPath.text)
 	
-
+const shop_path_default="shop/"
+const resource_path_default="resource/"
 const path_for_addon:="res://addons/shop_generator/"
 const path_for_shop=path_for_addon+"templates/shop/"
 func _on_generate_pressed() -> void:
-	var path_for_new_shop:String="res://"+$ShopPath.text
+	var path_for_new_shop:String="res://"+$ShopPath.text if $ShopPath.text else shop_path_default
 	var path_for_new_shop_script:=path_for_new_shop+"shop.gd"
-	DirAccess.make_dir_recursive_absolute("res://"+$ShopPath.text)
+	DirAccess.make_dir_recursive_absolute("res://"+$ShopPath.text if $ShopPath.text else shop_path_default)
 	DirAccess.make_dir_recursive_absolute(path_for_addon+"templates/resources/")
-	copy_dir_recursively(path_for_shop,"res://"+$ShopPath.text)
+	copy_dir_recursively(path_for_shop,"res://"+$ShopPath.text if $ShopPath.text else shop_path_default)
 	copy_dir_recursively(path_for_addon+"templates/resources/","res://"+$ResourcePath.text)
 	var shop_file:=FileAccess.open(path_for_new_shop_script,FileAccess.READ_WRITE)
 	var shop_template:=Templater.new(shop_file.get_as_text(),{"STATS_KEYS":'=["proba"]',"STATS_VALUES":"=['proba']"})
