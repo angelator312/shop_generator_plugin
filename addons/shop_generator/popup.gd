@@ -4,6 +4,7 @@ extends Control
 const DELETE_BUTTON = preload("res://addons/shop_generator/delete_button.png")
 #const DOCUMENT_EDIT_ICON :Texture2D= preload("res://addons/shop_generator/e-icon.png")
 const project_setting_for_stats_name:="shop_generator/stats"
+const project_setting_for_stat_types:="shop_generator/stat_types"
 const shop_path_default="shop/"
 const resources_path_default="resources/"
 const path_for_addon:="res://addons/shop_generator/"
@@ -22,12 +23,12 @@ func add_stat():
 	new_stat.name=%StatName.text
 	new_stat.text=%StatName.text
 	%StatName.text=""
-	make_tree(stats)
+	make_tree(stats,[])
 
 func _ready() -> void:
 	_on_reload_button_pressed()
 #Tree:
-func make_tree(st:Array):
+func make_tree(st:Array,st2:Array):
 	tree.clear()
 	tree.create_item()
 	var stats:=tree.create_item()
@@ -47,7 +48,7 @@ func make_tree(st:Array):
 	%ReloadButton.position.y=tree.size.y+tree.position.y+25
 
 func _on_reload_button_pressed() -> void:
-	make_tree(ProjectSettings.get_setting(project_setting_for_stats_name,[]))
+	make_tree(ProjectSettings.get_setting(project_setting_for_stats_name,[]),ProjectSettings.get_setting(project_setting_for_stat_types,[]))
 
 
 func _on_tree_item_edited() -> void:
@@ -70,7 +71,7 @@ func _on_tree_button_clicked(item: TreeItem, column: int, id: int, mouse_button_
 	var stats:Array=ProjectSettings.get_setting(project_setting_for_stats_name,[])
 	stats.remove_at(id)
 	ProjectSettings.set_setting(project_setting_for_stats_name,stats)
-	make_tree(stats)
+	make_tree(stats,ProjectSettings.get_setting(project_setting_for_stat_types,[]))
 
 #Line edit
 
