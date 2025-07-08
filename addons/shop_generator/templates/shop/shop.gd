@@ -3,10 +3,10 @@ extends Control
 @onready var buttonScene=preload("button/button.tscn")
 var shop_resources:shop_objects
 const BROI_ON_SCREEN=3
-var _stats:Dictionary[String,String]#TEMPLATE:STATS
-var stats_values:=_stats.values()
-var stats_keys:=_stats.keys()
-var stats_size:=_stats.size()
+var _stats:Dictionary[String,String]
+var stats_values:Array[String]#TEMPLATE:STATS_KEYS #=_stats.values()
+var stats_keys:Array[String]#TEMPLATE:STATS_KEYS  #=_stats.keys()
+var stats_size:=stats_keys.size()
 func set_static_labels():
 	var tree:Tree=$Tree
 	#print(tree.get_first_child())
