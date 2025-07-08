@@ -14,3 +14,12 @@ func fill_template()->String:
 		print(e,"->",template_variables[e])
 		filled_template=filled_template.replace("#TEMPLATE:"+e,template_variables[e])
 	return filled_template
+
+class VariableTemplater:
+	var template:="@onready var name:type=default"
+	var filled_template:String
+	func fill_template(var_name:String,default_var,type_of_var:="")->String:
+		filled_template=template.replace("name",var_name)
+		filled_template=template.replace("default",str(default_var))
+		filled_template=template.replace("type",type_of_var)
+		return filled_template

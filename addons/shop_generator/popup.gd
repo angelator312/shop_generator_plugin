@@ -79,11 +79,13 @@ func _on_generate_pressed() -> void:
 	var shop_path_now=$ShopPath.text if $ShopPath.text else shop_path_default
 	var resources_path_now:String=$ResourcePath.text if $ResourcePath.text else resources_path_default
 	var path_for_new_shop:String="res://"+shop_path_now
+	var new_shop_stats_path="res://"+resources_path_now+"shop_stats.gd"
 	var path_for_new_shop_script:=path_for_new_shop+"shop.gd"
 	DirAccess.make_dir_recursive_absolute("res://"+shop_path_now)
 	DirAccess.make_dir_recursive_absolute(path_for_addon+"templates/resources/")
 	copy_dir_recursively(path_for_shop,"res://"+shop_path_now)
 	copy_dir_recursively(path_for_addon+"templates/resources/","res://"+resources_path_now)
+	
 	var shop_file:=FileAccess.open(path_for_new_shop_script,FileAccess.READ_WRITE)
 	var stats_names:Array=ProjectSettings.get_setting("shop_generator/stats",[]) as Array[String]
 	var stats_variable_names:Array=stats_names.map(func(el:String):return el.replace(" ","_").to_lower())
@@ -91,6 +93,15 @@ func _on_generate_pressed() -> void:
 		"STATS_KEYS":'=["'+'","'.join(stats_names)+'"]',"STATS_VALUES":'=["'+'","'.join(stats_variable_names)+'"]'})
 	print("filled template:\n",shop_template.fill_template())
 	shop_file.store_string(shop_template.filled_template)
+	
+	
+	var shop_stats_file:=FileAccess.open(new_shop_stats_path,FileAccess.READ_WRITE)
+	var shop_stats_template:=Templater.new(shop_stats_file.get_as_text(),{
+		#"ITEMS_SZ":"" - turn items on
+		#"ITEMS":"=[''...]" - set items
+		#"FUNCTIONS":"func()..." - add functions in shop_stats
+		"VARIABLES":"@onready var var_name:type_of_var=default_var"
+	})
 func copy_dir_recursively(source: String, destination: String):
 	DirAccess.make_dir_recursive_absolute(destination)
 	
