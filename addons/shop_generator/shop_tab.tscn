@@ -33,9 +33,9 @@ hide_root = true
 
 [node name="AddStat" type="Button" parent="."]
 layout_mode = 0
-offset_left = 691.0
+offset_left = 804.0
 offset_top = 148.0
-offset_right = 764.0
+offset_right = 877.0
 offset_bottom = 179.0
 text = "Add stat"
 
@@ -82,6 +82,17 @@ offset_top = 194.0
 offset_right = 62.0
 offset_bottom = 202.0
 text = "Reload tree"
+
+[node name="Dropdown" type="OptionButton" parent="."]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 700.0
+offset_top = 147.0
+offset_right = 792.0
+offset_bottom = 178.0
+item_count = 1
+popup/item_0/text = "Vector2"
+popup/item_0/id = 0
 
 [connection signal="button_clicked" from="Tree" to="." method="_on_tree_button_clicked"]
 [connection signal="item_edited" from="Tree" to="." method="_on_tree_item_edited"]

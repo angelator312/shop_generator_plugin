@@ -14,19 +14,26 @@ const arr_of_types:Array[String]=["Vector2","float","int","String"]
 func add_stat():
 	print("add_stat")
 	var stats=ProjectSettings.get_setting(project_setting_for_stats_name,[])
+	var stats_types=ProjectSettings.get_setting(project_setting_for_stat_types,[])
 	if stats.find(%StatName.text)>-1:
 		%StatName.text=""
 		return
 	stats.push_back(%StatName.text)
+	print("stats:",stats)
+	stats_types.push_back(%Dropdown.selected)
+	print("stats:",stats)
 	ProjectSettings.set_setting(project_setting_for_stats_name,stats)
-	var new_stat=Label.new()
-	new_stat.name=%StatName.text
-	new_stat.text=%StatName.text
+	ProjectSettings.set_setting(project_setting_for_stat_types,stats_types)
 	%StatName.text=""
-	make_tree(stats,[])
+	make_tree(stats,stats_types)
 
 func _ready() -> void:
 	_on_reload_button_pressed()
+	%Dropdown.clear()
+	for e in arr_of_types:
+		%Dropdown.add_item(e)
+		
+
 #Tree:
 func make_tree(st:Array,st2:Array):
 	tree.clear()
@@ -41,6 +48,7 @@ func make_tree(st:Array,st2:Array):
 		new.set_editable(0,true)
 		new.set_cell_mode(1, TreeItem.CELL_MODE_RANGE)
 		new.set_text(1, ",".join(arr_of_types))
+		new.set_range(1,st2[i])
 		new.set_editable(1, true)
 		i+=1
 	
@@ -69,9 +77,12 @@ func _on_tree_item_edited() -> void:
 
 func _on_tree_button_clicked(item: TreeItem, column: int, id: int, mouse_button_index: int) -> void:
 	var stats:Array=ProjectSettings.get_setting(project_setting_for_stats_name,[])
+	var stats_types:Array=ProjectSettings.get_setting(project_setting_for_stat_types,[])
 	stats.remove_at(id)
+	stats_types.remove_at(id)
 	ProjectSettings.set_setting(project_setting_for_stats_name,stats)
-	make_tree(stats,ProjectSettings.get_setting(project_setting_for_stat_types,[]))
+	ProjectSettings.set_setting(project_setting_for_stat_types,stats_types)
+	make_tree(stats,stats_types)
 
 #Line edit
 
