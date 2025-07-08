@@ -54,11 +54,11 @@ func make_static_labels():
 		var weapon_resource:=GlobalVariables.all_items[e]
 		var first_weapon=tree.create_item()
 		first_weapon.collapsed=true
-		var str=weapon_resource.name+"  "
+		var tmp_str=weapon_resource.name+"  "
 		if GlobalVariables.shop_stats.items.find(weapon_resource)==-1:
-			str+="(N/A)"
-		else:str+="(Aquired)"
-		first_weapon.set_text(0,str)
+			tmp_str+="(N/A)"
+		else:tmp_str+="(Aquired)"
+		first_weapon.set_text(0,tmp_str)
 		first_weapon.add_button(0,weapon_resource.texture)
 		var damage_weapon:=tree.create_item(first_weapon)
 		damage_weapon.set_text(0,"Damage:"+str(weapon_resource.attack.damage))
@@ -144,8 +144,9 @@ func depending_true(res:shop_resource_child):
 	return true
 
 func _on_quit_pressed() -> void:
-	GlobalFunctions.save_shop_resources(shop_resources)
+	#TEMPLATE:SAVE_SHOP_FUNC(shop_resources)
 	#TEMPLATE:CHANGE_SCENE
+	pass
 func on_add_1000_money_pressed():
 	if OS.is_debug_build():
 		GlobalVariables.shop_stats.money+=1000
