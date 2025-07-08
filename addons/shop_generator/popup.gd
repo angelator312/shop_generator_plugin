@@ -3,6 +3,10 @@ extends Control
 @onready var tree: Tree = $Tree
 const DELETE_BUTTON = preload("res://addons/shop_generator/delete_button.png")
 #const DOCUMENT_EDIT_ICON :Texture2D= preload("res://addons/shop_generator/e-icon.png")
+const shop_path_default="shop/"
+const resources_path_default="resources/"
+const path_for_addon:="res://addons/shop_generator/"
+const path_for_shop=path_for_addon+"templates/shop/"
 var regex_str="res://"
 func add_stat():
 	print("add_stat")
@@ -71,10 +75,7 @@ func _on_line_edit_editing_toggled(toggled_on: bool) -> void:
 	$ShopPath.text=$ShopPath.text.replace(regex_str,"")
 	print($ShopPath.text)
 	
-const shop_path_default="shop/"
-const resources_path_default="resources/"
-const path_for_addon:="res://addons/shop_generator/"
-const path_for_shop=path_for_addon+"templates/shop/"
+
 func _on_generate_pressed() -> void:
 	var shop_path_now=$ShopPath.text if $ShopPath.text else shop_path_default
 	var resources_path_now:String=$ResourcePath.text if $ResourcePath.text else resources_path_default
@@ -114,6 +115,7 @@ func _on_generate_pressed() -> void:
 	print("filled template:\n",shop_stats_template.fill_template())
 	shop_stats_file.store_string(shop_stats_template.filled_template)
 	shop_stats_file.close()
+
 func copy_dir_recursively(source: String, destination: String):
 	DirAccess.make_dir_recursive_absolute(destination)
 	
