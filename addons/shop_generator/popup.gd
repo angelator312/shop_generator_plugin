@@ -108,24 +108,21 @@ func _on_generate_pressed() -> void:
 	use_template_on(path_for_new_shop_script,{
 		"STATS_KEYS":'=["'+'","'.join(stats_names)+'"]',"STATS_VALUES":'=["'+'","'.join(stats_variable_names)+'"]'})
 	
-	var shop_stats_file:=FileAccess.open(new_shop_stats_path,FileAccess.READ_WRITE)
+	#var shop_stats_file:=FileAccess.open(new_shop_stats_path,FileAccess.READ_WRITE)
 	var variable_arr:=[]
 	
 	for idx in stats_names.size():
 		var a:=Templater.VariableTemplater.new()
 		a.fill_template(stats_names[idx],arr_of_types[stats_types[idx]])
 		variable_arr.push_back(a.filled_template)
-	var shop_stats_template:=Templater.new(shop_stats_file.get_as_text(),{
+	use_template_on(new_shop_stats_path,{
 		#"ITEMS_SZ":"" - turn items on
 		#"ITEMS":"=[''...]" - set items
 		#"FUNCTIONS":"func()..." - add functions in shop_stats
 		#"VARIABLES":"@export var var_name:type_of_var=default_var\n"
 		"VARIABLES":"\n".join(variable_arr)
 	})
-	print("start:",shop_stats_file.get_as_text())
-	print("filled template:\n",shop_stats_template.fill_template())
-	shop_stats_file.store_string(shop_stats_template.filled_template)
-	shop_stats_file.close()
+	
 
 func copy_dir_recursively(source: String, destination: String):
 	DirAccess.make_dir_recursive_absolute(destination)
@@ -139,7 +136,7 @@ func copy_dir_recursively(source: String, destination: String):
 	for dir in source_dir.get_directories():
 		self.copy_dir_recursively(source + dir + "/", destination + dir + "/")
 
-func use_template_on(path_to_file:String,template_vars:Dictionary[String,String]):
+func use_template_on(path_to_file:String,template_vars:Dictionary[String,String])->void:
 	var shop_file:=FileAccess.open(path_to_file,FileAccess.READ_WRITE)
 	var shop_template:=Templater.new(shop_file.get_as_text(),template_vars)
 	shop_template.fill_template()
@@ -153,13 +150,13 @@ func _on_delete_pressed() -> void:
 	remove_dir_recursively("res://"+shop_path_now)
 	remove_dir_recursively("res://"+resources_path_now)
 
-func remove_dir_recursively(path:String):
+func remove_dir_recursively(path:String)->void:
 	var source_dir:=DirAccess.open(path)
-
 	for filename in source_dir.get_files():
 		if filename.ends_with(".uid"):continue
 		source_dir.remove(path + filename)
-		
+	
 	for dir in source_dir.get_directories():
 		remove_dir_recursively(path + dir + "/")
+	
 	source_dir.remove("")
