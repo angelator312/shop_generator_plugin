@@ -91,17 +91,29 @@ func _on_generate_pressed() -> void:
 	var stats_variable_names:Array=stats_names.map(func(el:String):return el.replace(" ","_").to_lower())
 	var shop_template:=Templater.new(shop_file.get_as_text(),{
 		"STATS_KEYS":'=["'+'","'.join(stats_names)+'"]',"STATS_VALUES":'=["'+'","'.join(stats_variable_names)+'"]'})
-	print("filled template:\n",shop_template.fill_template())
 	shop_file.store_string(shop_template.filled_template)
+	shop_file.close()
 	
-	
+	var callab=func(el:String):
+		var tmp:=Templater.VariableTemplater.new()
+		tmp.fill_template(el,'""')
+		print("var_params:",el,",","")
+		print("var:",tmp.filled_template)
+		return tmp.filled_template
+		
 	var shop_stats_file:=FileAccess.open(new_shop_stats_path,FileAccess.READ_WRITE)
+	var variable_arr:Array=stats_variable_names.map(callab)
 	var shop_stats_template:=Templater.new(shop_stats_file.get_as_text(),{
 		#"ITEMS_SZ":"" - turn items on
 		#"ITEMS":"=[''...]" - set items
 		#"FUNCTIONS":"func()..." - add functions in shop_stats
-		"VARIABLES":"@onready var var_name:type_of_var=default_var"
+		#"VARIABLES":"@export var var_name:type_of_var=default_var\n"
+		"VARIABLES":"\n".join(variable_arr)
 	})
+	print("start:",shop_stats_file.get_as_text())
+	print("filled template:\n",shop_stats_template.fill_template())
+	shop_stats_file.store_string(shop_stats_template.filled_template)
+	shop_stats_file.close()
 func copy_dir_recursively(source: String, destination: String):
 	DirAccess.make_dir_recursive_absolute(destination)
 	
