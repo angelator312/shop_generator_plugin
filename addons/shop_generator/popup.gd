@@ -40,17 +40,21 @@ func make_tree(st:Array,st2:Array):
 	tree.clear()
 	tree.create_item()
 	var stats:=tree.create_item()
-	stats.set_text(0,"Stats:")
+	stats.set_text(0,"Names:")
+	stats.set_text(1,"Types:")
+	stats.set_text(2,"Defaults:")
+	
 	var i:=0
 	for e in st:
 		var new=stats.create_child()
 		new.set_text(0,str(e))
-		new.add_button(1,DELETE_BUTTON,i,false,"delete stat")
 		new.set_editable(0,true)
 		new.set_cell_mode(1, TreeItem.CELL_MODE_RANGE)
 		new.set_text(1, ",".join(arr_of_types))
 		new.set_range(1,st2[i])
 		new.set_editable(1, true)
+		
+		new.add_button(2,DELETE_BUTTON,i,false,"delete stat")
 		i+=1
 	
 	tree.size.y=(st.size())*41+41

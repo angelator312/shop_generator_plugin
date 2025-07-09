@@ -26,9 +26,9 @@ text = "Shop generator configuration"
 layout_mode = 0
 offset_left = 23.0
 offset_top = 40.0
-offset_right = 273.0
+offset_right = 337.0
 offset_bottom = 163.0
-columns = 2
+columns = 3
 hide_root = true
 
 [node name="AddStat" type="Button" parent="."]
@@ -122,6 +122,13 @@ var all_items:Array[Item]
 var all_items_sz:=all_items.size()
 "
 editable = false
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 153.0
+offset_right = 193.0
+offset_bottom = 23.0
+text = "Stats:"
 
 [connection signal="button_clicked" from="Tree" to="." method="_on_tree_button_clicked"]
 [connection signal="item_edited" from="Tree" to="." method="_on_tree_item_edited"]
