@@ -1,6 +1,5 @@
 @tool
 extends Control
-@onready var tree: Tree = %Tree
 const DELETE_BUTTON = preload("res://addons/shop_generator/delete_button.png")
 # Vars for project settings
 const project_setting_for_stats_name:="shop_generator/stats"#Name of Stat -> Mone Multiplayer
