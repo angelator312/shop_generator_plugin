@@ -151,8 +151,10 @@ text = "[center]Instructions:[/center]
 If you want attack the add 1000 money button to add a button for debug version that adds 1000 money
 3. Punch the Generate shop button.
 4. Copy the script to your GlobalVariables file
-5. Made configuration for shop in shop_dir/shop_configuration/shop_configuration.tscn.
-6. Test the shop at shop_dir/shop.tscn"
+5. Add file_name_of_shop_save to your GlobalLocalization file and set it to the name of save file for shop
+6. Made configuration for shop in shop_dir/shop_configuration/shop_configuration.tscn.
+7. Test the shop at shop_dir/shop.tscn
+GlobalVariables and GlobalLocalization have to be in autoload."
 
 [node name="CheckBox" type="CheckButton" parent="."]
 layout_mode = 0

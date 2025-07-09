@@ -152,7 +152,7 @@ func _on_quit_pressed() -> void:
 	#TEMPLATE:IS_DEBUG_ADD_MONEYset_static_labels()
 
 func load_shop_resources():
-	var ld=GlobalFunctions.load_resource(GlobalLocalization.file_name_of_shop)# false or the resource
+	var ld=GlobalFunctions.load_resource(GlobalLocalization.file_name_of_shop_save)# false or the resource
 	if !ld:
 		var shop_resources_tmp=shop_objects.new()
 		shop_resources_tmp.resources_at_screen=preload("shop_configuration/shop_configuration.tscn").instantiate().shop_upgrades_graph
