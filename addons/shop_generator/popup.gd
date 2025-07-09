@@ -144,8 +144,15 @@ func _on_generate_pressed() -> void:
 	var stats_types:Array=ProjectSettings.get_setting(project_setting_for_stat_types,[])
 	var stats_defaults=ProjectSettings.get_setting(project_setting_for_stat_defaults,[])
 	var stats_variable_names:Array=stats_names.map(func(el:String):return el.replace(" ","_").to_lower())
-	use_template_on(path_for_new_shop_script,{
-		"STATS_KEYS":'=["'+'","'.join(stats_names)+'"]',"STATS_VALUES":'=["'+'","'.join(stats_variable_names)+'"]'})
+	var shop_vars:={
+		"STATS_KEYS":'=["'+'","'.join(stats_names)+'"]',
+		"STATS_VALUES":'=["'+'","'.join(stats_variable_names)+'"]',
+		#"IS_DEBUG_ADD_MONEY":"", - is there add 1000 money button
+		#"CHANGE_SCENE":'SceneManager.change_scene' - change the scene
+		#"ON_QUIT":"GlobalFunctions.save_shop_resource(shop_resources)", - things before scene changing, there us shop_resources variable with everything for the shop
+		
+	}
+	use_template_on(path_for_new_shop_script,shop_vars)
 	
 	#ShopStats.gd:
 	var variable_arr:=[]
@@ -169,6 +176,10 @@ func copy_dir_recursively(source: String, destination: String):
 	
 	for filename in source_dir.get_files():
 		if filename.ends_with(".uid"):continue
+		if filename=="shop_configuration.tscn":
+			if FileAccess.file_exists(destination+filename):
+				print("shop configuration is reused")
+				continue
 		source_dir.copy(source + filename, destination + filename)
 		
 	for dir in source_dir.get_directories():
