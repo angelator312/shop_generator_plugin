@@ -2,14 +2,13 @@
 
 [ext_resource type="Script" uid="uid://c6tffwmyg44hh" path="res://addons/shop_generator/popup.gd" id="1_e8h3x"]
 
-[node name="Control" type="Control"]
+[node name="ShopScreen" type="Control"]
 layout_mode = 3
 anchors_preset = 0
 offset_left = 5.0
 offset_top = 23.0
 offset_right = 1154.0
 offset_bottom = 673.0
-script = ExtResource("1_e8h3x")
 
 [node name="Name" type="Label" parent="."]
 layout_mode = 1
@@ -21,23 +20,6 @@ offset_right = 114.0
 offset_bottom = 23.0
 grow_horizontal = 2
 text = "Shop generator configuration"
-
-[node name="AddStat" type="Button" parent="."]
-layout_mode = 0
-offset_left = 922.0
-offset_top = 146.0
-offset_right = 995.0
-offset_bottom = 177.0
-text = "Add stat"
-
-[node name="StatName" type="LineEdit" parent="."]
-unique_name_in_owner = true
-layout_mode = 0
-offset_left = 451.0
-offset_top = 146.0
-offset_right = 686.0
-offset_bottom = 177.0
-placeholder_text = "Stat title(Money Multiplayer)"
 
 [node name="ShopPath" type="LineEdit" parent="."]
 layout_mode = 0
@@ -64,24 +46,6 @@ offset_right = 686.0
 offset_bottom = 122.0
 placeholder_text = "Resources Dir without res://"
 expand_to_text_length = true
-
-[node name="Dropdown" type="OptionButton" parent="."]
-unique_name_in_owner = true
-layout_mode = 0
-offset_left = 700.0
-offset_top = 146.0
-offset_right = 792.0
-offset_bottom = 177.0
-selected = 0
-item_count = 4
-popup/item_0/text = "Vector2"
-popup/item_0/id = 0
-popup/item_1/text = "float"
-popup/item_1/id = 1
-popup/item_2/text = "int"
-popup/item_2/id = 2
-popup/item_3/text = "String"
-popup/item_3/id = 3
 
 [node name="Delete" type="Button" parent="."]
 layout_mode = 0
@@ -110,15 +74,6 @@ offset_left = 153.0
 offset_right = 193.0
 offset_bottom = 23.0
 text = "Stats:"
-
-[node name="StatDefault" type="LineEdit" parent="."]
-unique_name_in_owner = true
-layout_mode = 0
-offset_left = 797.0
-offset_top = 146.0
-offset_right = 918.0
-offset_bottom = 177.0
-placeholder_text = "Default value"
 
 [node name="Instructions" type="RichTextLabel" parent="."]
 layout_mode = 0
@@ -157,6 +112,7 @@ offset_bottom = 24.0
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
+script = ExtResource("1_e8h3x")
 
 [node name="Tree" type="Tree" parent="Stats"]
 unique_name_in_owner = true
@@ -177,12 +133,56 @@ offset_right = 151.0
 offset_bottom = 178.0
 text = "Reload tree"
 
-[connection signal="pressed" from="AddStat" to="." method="add_stat"]
+[node name="AddStat" type="Button" parent="Stats"]
+layout_mode = 0
+offset_left = 922.0
+offset_top = 146.0
+offset_right = 995.0
+offset_bottom = 177.0
+text = "Add stat"
+
+[node name="StatName" type="LineEdit" parent="Stats"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 451.0
+offset_top = 146.0
+offset_right = 686.0
+offset_bottom = 177.0
+placeholder_text = "Stat title(Money Multiplayer)"
+
+[node name="Dropdown" type="OptionButton" parent="Stats"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 700.0
+offset_top = 146.0
+offset_right = 792.0
+offset_bottom = 177.0
+selected = 0
+item_count = 4
+popup/item_0/text = "Vector2"
+popup/item_0/id = 0
+popup/item_1/text = "float"
+popup/item_1/id = 1
+popup/item_2/text = "int"
+popup/item_2/id = 2
+popup/item_3/text = "String"
+popup/item_3/id = 3
+
+[node name="StatDefault" type="LineEdit" parent="Stats"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 797.0
+offset_top = 146.0
+offset_right = 918.0
+offset_bottom = 177.0
+placeholder_text = "Default value"
+
 [connection signal="editing_toggled" from="ShopPath" to="." method="_on_line_edit_editing_toggled"]
 [connection signal="pressed" from="Generate" to="." method="_on_generate_pressed"]
 [connection signal="editing_toggled" from="ResourcePath" to="." method="_on_line_edit_editing_toggled"]
 [connection signal="pressed" from="Delete" to="." method="_on_delete_pressed"]
 [connection signal="toggled" from="SwitcherStatsOrUpgradeTypes" to="." method="_on_toggled_stats_or_upgrade_types"]
-[connection signal="button_clicked" from="Stats/Tree" to="." method="_on_tree_button_clicked"]
-[connection signal="item_edited" from="Stats/Tree" to="." method="_on_tree_item_edited"]
-[connection signal="pressed" from="Stats/ReloadButton" to="." method="_on_reload_button_pressed"]
+[connection signal="button_clicked" from="Stats/Tree" to="Stats" method="_on_tree_button_clicked"]
+[connection signal="item_edited" from="Stats/Tree" to="Stats" method="_on_tree_item_edited"]
+[connection signal="pressed" from="Stats/ReloadButton" to="Stats" method="_on_reload_button_pressed"]
+[connection signal="pressed" from="Stats/AddStat" to="Stats" method="add_stat"]
