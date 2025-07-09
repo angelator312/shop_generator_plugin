@@ -141,6 +141,7 @@ func _on_generate_pressed() -> void:
 	#Shop.gd:
 	var stats_names:Array=ProjectSettings.get_setting(project_setting_for_stats_name,[])
 	var stats_types:Array=ProjectSettings.get_setting(project_setting_for_stat_types,[])
+	var stats_defaults=ProjectSettings.get_setting(project_setting_for_stat_defaults,[])
 	var stats_variable_names:Array=stats_names.map(func(el:String):return el.replace(" ","_").to_lower())
 	use_template_on(path_for_new_shop_script,{
 		"STATS_KEYS":'=["'+'","'.join(stats_names)+'"]',"STATS_VALUES":'=["'+'","'.join(stats_variable_names)+'"]'})
@@ -150,11 +151,11 @@ func _on_generate_pressed() -> void:
 	
 	for idx in stats_names.size():
 		var a:=Templater.VariableTemplater.new()
-		a.fill_template(stats_names[idx],arr_of_types[stats_types[idx]])
+		a.fill_template(stats_names[idx],arr_of_types[stats_types[idx]],stats_defaults[idx])
 		variable_arr.push_back(a.filled_template)
 	use_template_on(new_shop_stats_path,{
 		#"ITEMS_SZ":"" - turn items on
-		#"ITEMS":"=[''...]" - set items
+		#"ITEMS":"=[''...]" - set start items for player
 		#"FUNCTIONS":"func()..." - add functions in shop_stats
 		#"VARIABLES":"@export var var_name:type_of_var=default_var\n"
 		"VARIABLES":"\n".join(variable_arr)
