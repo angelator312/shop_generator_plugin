@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://olunpibk8cxt"]
+[gd_scene load_steps=4 format=3 uid="uid://olunpibk8cxt"]
 
 [ext_resource type="Script" uid="uid://c6tffwmyg44hh" path="res://addons/shop_generator/stats_script.gd" id="1_e8h3x"]
 [ext_resource type="Script" uid="uid://cnnk150odq7o6" path="res://addons/shop_generator/shop_tab.gd" id="1_v4um2"]
+[ext_resource type="Script" uid="uid://bsq5qmmr4v15q" path="res://addons/shop_generator/types_of_upgrades.gd" id="3_fm5an"]
 
 [node name="ShopScreen" type="Control"]
 layout_mode = 3
@@ -117,7 +118,6 @@ offset_bottom = 40.0
 script = ExtResource("1_e8h3x")
 
 [node name="Tree" type="Tree" parent="Stats"]
-unique_name_in_owner = true
 layout_mode = 0
 offset_left = 23.0
 offset_top = 40.0
@@ -178,6 +178,27 @@ offset_top = 146.0
 offset_right = 918.0
 offset_bottom = 177.0
 placeholder_text = "Default value"
+
+[node name="TypesOfUpgrades" type="Control" parent="."]
+visible = false
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("3_fm5an")
+
+[node name="TypeName" type="LineEdit" parent="TypesOfUpgrades"]
+layout_mode = 0
+offset_left = 451.0
+offset_top = 145.0
+offset_right = 687.0
+offset_bottom = 176.0
+
+[node name="AddType" type="Button" parent="TypesOfUpgrades"]
+offset_left = 701.0
+offset_top = 146.0
+offset_right = 774.0
+offset_bottom = 177.0
+text = "Add stat"
 
 [connection signal="editing_toggled" from="ShopPath" to="." method="_on_line_edit_editing_toggled"]
 [connection signal="pressed" from="Generate" to="." method="_on_generate_pressed"]
