@@ -170,15 +170,12 @@ func copy_dir_recursively(source: String, destination: String):
 	for filename in source_dir.get_files():
 		if filename.ends_with(".uid"):continue
 		source_dir.copy(source + filename, destination + filename)
-		if filename=="shop_stats.gd":
-			print(source_dir.open(source+filename))
 		
 	for dir in source_dir.get_directories():
 		self.copy_dir_recursively(source + dir + "/", destination + dir + "/")
 
 func use_template_on(path_to_file:String,template_vars:Dictionary[String,String])->void:
 	var template:GDScript=ResourceLoader.load(path_to_file,"",ResourceLoader.CACHE_MODE_IGNORE)
-	print(template.source_code)
 	var shop_template:=Templater.new(template.source_code,template_vars)
 	template.source_code=shop_template.fill_template()
 	ResourceSaver.save(template,path_to_file)
