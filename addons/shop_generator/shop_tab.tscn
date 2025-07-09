@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://olunpibk8cxt"]
 
-[ext_resource type="Script" uid="uid://c6tffwmyg44hh" path="res://addons/shop_generator/popup.gd" id="1_e8h3x"]
+[ext_resource type="Script" uid="uid://c6tffwmyg44hh" path="res://addons/shop_generator/stats_script.gd" id="1_e8h3x"]
 [ext_resource type="Script" uid="uid://cnnk150odq7o6" path="res://addons/shop_generator/shop_tab.gd" id="1_v4um2"]
 
 [node name="ShopScreen" type="Control"]
@@ -122,7 +122,7 @@ layout_mode = 0
 offset_left = 23.0
 offset_top = 40.0
 offset_right = 337.0
-offset_bottom = 122.0
+offset_bottom = 163.0
 columns = 3
 hide_root = true
 
@@ -130,9 +130,9 @@ hide_root = true
 unique_name_in_owner = true
 layout_mode = 0
 offset_left = 54.0
-offset_top = 147.0
+offset_top = 188.0
 offset_right = 151.0
-offset_bottom = 178.0
+offset_bottom = 219.0
 text = "Reload tree"
 
 [node name="AddStat" type="Button" parent="Stats"]
