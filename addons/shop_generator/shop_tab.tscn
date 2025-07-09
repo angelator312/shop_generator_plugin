@@ -102,6 +102,7 @@ popup/item_3/text = "String"
 popup/item_3/id = 3
 
 [node name="Delete" type="Button" parent="."]
+layout_mode = 0
 offset_left = 958.0
 offset_top = 89.0
 offset_right = 1081.0

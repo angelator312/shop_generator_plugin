@@ -12,6 +12,15 @@ const path_for_shop=path_for_addon+"templates/shop/"
 const path_for_resources=path_for_addon+"templates/resources/"
 var regex_str="res://"
 const arr_of_types:Array[String]=["Vector2","float","int","String"]
+
+func _ready() -> void:
+	_on_reload_button_pressed()
+	%Dropdown.clear()
+	for e in arr_of_types:
+		%Dropdown.add_item(e)
+
+#Tree:
+
 func add_stat():
 	print("add_stat")
 	var stats=ProjectSettings.get_setting(project_setting_for_stats_name,[])
@@ -28,13 +37,6 @@ func add_stat():
 	%StatName.text=""
 	make_tree(stats,stats_types)
 
-func _ready() -> void:
-	_on_reload_button_pressed()
-	%Dropdown.clear()
-	for e in arr_of_types:
-		%Dropdown.add_item(e)
-
-#Tree:
 func make_tree(st:Array,st2:Array):
 	tree.clear()
 	tree.create_item()
@@ -85,13 +87,13 @@ func _on_tree_button_clicked(item: TreeItem, column: int, id: int, mouse_button_
 	ProjectSettings.set_setting(project_setting_for_stat_types,stats_types)
 	make_tree(stats,stats_types)
 
-#Line edit
+#For Line edit:
 func _on_line_edit_editing_toggled(toggled_on: bool) -> void:
 	if toggled_on:return
 	$ShopPath.text=$ShopPath.text.replace(regex_str,"")
 	print($ShopPath.text)
 
-#Generate:
+#Generate shop:
 func _on_generate_pressed() -> void:
 	var shop_path_now=$ShopPath.text if $ShopPath.text else shop_path_default
 	var resources_path_now:String=$ResourcePath.text if $ResourcePath.text else resources_path_default
@@ -138,7 +140,6 @@ func _on_generate_pressed() -> void:
 		#"VARIABLES":"@export var var_name:type_of_var=default_var\n"
 		"VARIABLES":"\n".join(variable_arr)
 	})
-	
 
 func copy_dir_recursively(source: String, destination: String):
 	DirAccess.make_dir_recursive_absolute(destination)
@@ -159,7 +160,7 @@ func use_template_on(path_to_file:String,template_vars:Dictionary[String,String]
 	ResourceSaver.save(template,path_to_file)
 	print("path:",path_to_file)
 
-
+#Delete Shop:
 func _on_delete_pressed() -> void:
 	var shop_path_now=$ShopPath.text if $ShopPath.text else shop_path_default
 	var resources_path_now:String=$ResourcePath.text if $ResourcePath.text else resources_path_default
