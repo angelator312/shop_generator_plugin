@@ -20,7 +20,6 @@ func _ready() -> void:
 		%Dropdown.add_item(e)
 
 #Tree:
-
 func add_stat():
 	print("add_stat")
 	var stats=ProjectSettings.get_setting(project_setting_for_stats_name,[])
