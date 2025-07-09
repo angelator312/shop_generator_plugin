@@ -33,19 +33,19 @@ hide_root = true
 
 [node name="AddStat" type="Button" parent="."]
 layout_mode = 0
-offset_left = 804.0
-offset_top = 148.0
-offset_right = 877.0
-offset_bottom = 179.0
+offset_left = 922.0
+offset_top = 146.0
+offset_right = 995.0
+offset_bottom = 177.0
 text = "Add stat"
 
 [node name="StatName" type="LineEdit" parent="."]
 unique_name_in_owner = true
 layout_mode = 0
 offset_left = 451.0
-offset_top = 148.0
+offset_top = 146.0
 offset_right = 686.0
-offset_bottom = 179.0
+offset_bottom = 177.0
 placeholder_text = "Stat title(Money Multiplayer)"
 
 [node name="ShopPath" type="LineEdit" parent="."]
@@ -87,9 +87,9 @@ text = "Reload tree"
 unique_name_in_owner = true
 layout_mode = 0
 offset_left = 700.0
-offset_top = 147.0
+offset_top = 146.0
 offset_right = 792.0
-offset_bottom = 178.0
+offset_bottom = 177.0
 selected = 0
 item_count = 4
 popup/item_0/text = "Vector2"
@@ -129,6 +129,13 @@ offset_left = 153.0
 offset_right = 193.0
 offset_bottom = 23.0
 text = "Stats:"
+
+[node name="StatDefault" type="LineEdit" parent="."]
+offset_left = 797.0
+offset_top = 146.0
+offset_right = 918.0
+offset_bottom = 177.0
+placeholder_text = "Default value"
 
 [connection signal="button_clicked" from="Tree" to="." method="_on_tree_button_clicked"]
 [connection signal="item_edited" from="Tree" to="." method="_on_tree_item_edited"]
