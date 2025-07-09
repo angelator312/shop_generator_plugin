@@ -65,8 +65,6 @@ func make_static_labels():
 		var knockback_weapon:=tree.create_item(first_weapon)
 		knockback_weapon.set_text(0,"Knockback:"+str(weapon_resource.attack.knockback))
 
-
-	
 func update_buttons_of_deals():
 	for e in %ContainerOfButtons.get_children():
 		if e is ButtonWithResource:
@@ -108,8 +106,7 @@ func _ready() -> void:
 	#update  buttons  
 	update_buttons_of_deals()
 	# add functionality for debug
-	$"add 1000 money".visible=OS.is_debug_build()
-	
+	#TEMPLATE:IS_DEBUG_ADD_MONEY$"add 1000 money".visible=OS.is_debug_build()
 
 func call_to_all_buttons(resource:shop_resource_child,type:GlobalTypes.types_of_upgrades,button_who_is_pressed:ButtonWithResource)->void: #called from button.pressed signal
 	# upgrade things
@@ -144,17 +141,18 @@ func depending_true(res:shop_resource_child):
 	return true
 
 func _on_quit_pressed() -> void:
-	#TEMPLATE:SAVE_SHOP_FUNC(shop_resources)
+	#TEMPLATE:ON_QUIT
 	#TEMPLATE:CHANGE_SCENE
 	pass
-func on_add_1000_money_pressed():
-	if OS.is_debug_build():
-		GlobalVariables.shop_stats.money+=1000
-		update_buttons_of_deals()
-	set_static_labels()
+
+#TEMPLATE:IS_DEBUG_ADD_MONEYfunc on_add_1000_money_pressed():
+	#TEMPLATE:IS_DEBUG_ADD_MONEYif OS.is_debug_build():
+		#TEMPLATE:IS_DEBUG_ADD_MONEYGlobalVariables.shop_stats.money+=1000
+		#TEMPLATE:IS_DEBUG_ADD_MONEYupdate_buttons_of_deals()
+	#TEMPLATE:IS_DEBUG_ADD_MONEYset_static_labels()
 
 func load_shop_resources():
-	var ld=GlobalFunctions.load_resource(GlobalLocalization.file_name_of_shop);# false or the resource
+	var ld=GlobalFunctions.load_resource(GlobalLocalization.file_name_of_shop)# false or the resource
 	if !ld:
 		var shop_resources_tmp=shop_objects.new()
 		shop_resources_tmp.resources_at_screen=preload("shop_configuration/shop_configuration.tscn").instantiate().shop_upgrades_graph
