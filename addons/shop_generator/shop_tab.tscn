@@ -27,7 +27,7 @@ layout_mode = 0
 offset_left = 23.0
 offset_top = 40.0
 offset_right = 337.0
-offset_bottom = 163.0
+offset_bottom = 122.0
 columns = 3
 hide_root = true
 
@@ -78,9 +78,9 @@ expand_to_text_length = true
 unique_name_in_owner = true
 layout_mode = 0
 offset_left = 54.0
-offset_top = 188.0
+offset_top = 147.0
 offset_right = 151.0
-offset_bottom = 219.0
+offset_bottom = 178.0
 text = "Reload tree"
 
 [node name="Dropdown" type="OptionButton" parent="."]
@@ -130,6 +130,7 @@ text = "Stats:"
 
 [node name="StatDefault" type="LineEdit" parent="."]
 unique_name_in_owner = true
+layout_mode = 0
 offset_left = 797.0
 offset_top = 146.0
 offset_right = 918.0

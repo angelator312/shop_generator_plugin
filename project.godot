@@ -29,5 +29,5 @@ enabled=PackedStringArray("res://addons/kenyoni/plugin_reloader/plugin.cfg", "re
 [shop_generator]
 
 stat_defaults=["0.0"]
-stats=["b"]
+stats=["b2"]
 stat_types=[1.0]

@@ -1,5 +1,5 @@
 extends Resource
-class_name shop_objects
+#TEMPLATE:IS_TEMPLATEclass_name shop_objects
 @export var resources_at_screen:Array[shop_resource]=[]
 
 @export var levels_of_upgrades:Dictionary[GlobalTypes.types_of_upgrades,int]

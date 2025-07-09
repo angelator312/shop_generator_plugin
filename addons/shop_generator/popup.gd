@@ -128,6 +128,7 @@ func _on_generate_pressed() -> void:
 	
 	DirAccess.make_dir_recursive_absolute("res://"+shop_path_now)
 	DirAccess.make_dir_recursive_absolute(path_for_new_resources)
+	DirAccess.remove_absolute(new_shop_stats_path)
 	copy_dir_recursively(path_for_shop,"res://"+shop_path_now)
 	copy_dir_recursively(path_for_resources,path_for_new_resources)
 	
@@ -169,12 +170,15 @@ func copy_dir_recursively(source: String, destination: String):
 	for filename in source_dir.get_files():
 		if filename.ends_with(".uid"):continue
 		source_dir.copy(source + filename, destination + filename)
+		if filename=="shop_stats.gd":
+			print(source_dir.open(source+filename))
 		
 	for dir in source_dir.get_directories():
 		self.copy_dir_recursively(source + dir + "/", destination + dir + "/")
 
 func use_template_on(path_to_file:String,template_vars:Dictionary[String,String])->void:
-	var template:GDScript=load(path_to_file)
+	var template:GDScript=ResourceLoader.load(path_to_file,"",ResourceLoader.CACHE_MODE_IGNORE)
+	print(template.source_code)
 	var shop_template:=Templater.new(template.source_code,template_vars)
 	template.source_code=shop_template.fill_template()
 	ResourceSaver.save(template,path_to_file)
