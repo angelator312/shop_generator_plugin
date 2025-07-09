@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://olunpibk8cxt"]
+[gd_scene load_steps=3 format=3 uid="uid://olunpibk8cxt"]
 
 [ext_resource type="Script" uid="uid://c6tffwmyg44hh" path="res://addons/shop_generator/popup.gd" id="1_e8h3x"]
+[ext_resource type="Script" uid="uid://cnnk150odq7o6" path="res://addons/shop_generator/shop_tab.gd" id="1_v4um2"]
 
 [node name="ShopScreen" type="Control"]
 layout_mode = 3
@@ -9,6 +10,7 @@ offset_left = 5.0
 offset_top = 23.0
 offset_right = 1154.0
 offset_bottom = 673.0
+script = ExtResource("1_v4um2")
 
 [node name="Name" type="Label" parent="."]
 layout_mode = 1
