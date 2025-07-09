@@ -111,10 +111,10 @@ text = "Delete Shop"
 
 [node name="Code-GlobalVariables" type="CodeEdit" parent="."]
 layout_mode = 0
-offset_left = 44.0
-offset_top = 314.0
-offset_right = 357.0
-offset_bottom = 430.0
+offset_left = 832.0
+offset_top = 304.0
+offset_right = 1145.0
+offset_bottom = 420.0
 text = "#GlobalVariables:
 var shop_stats:=ShopStats.new()
 var all_items:Array[Item]
@@ -137,12 +137,12 @@ offset_right = 918.0
 offset_bottom = 177.0
 placeholder_text = "Default value"
 
-[node name="Some Instructions" type="RichTextLabel" parent="."]
+[node name="Instructions" type="RichTextLabel" parent="."]
 layout_mode = 0
 offset_left = 446.0
-offset_top = 301.0
-offset_right = 870.0
-offset_bottom = 567.0
+offset_top = 304.0
+offset_right = 828.0
+offset_bottom = 570.0
 theme_override_font_sizes/normal_font_size = 15
 bbcode_enabled = true
 text = "[center]Instructions:[/center]
@@ -153,6 +153,14 @@ If you want attack the add 1000 money button to add a button for debug version t
 4. Copy the script to your GlobalVariables file
 5. Made configuration for shop in shop_dir/shop_configuration/shop_configuration.tscn.
 6. Test the shop at shop_dir/shop.tscn"
+
+[node name="CheckBox" type="CheckButton" parent="."]
+layout_mode = 0
+offset_left = 832.0
+offset_top = 271.0
+offset_right = 1076.0
+offset_bottom = 302.0
+text = "add debug money button"
 
 [connection signal="button_clicked" from="Tree" to="." method="_on_tree_button_clicked"]
 [connection signal="item_edited" from="Tree" to="." method="_on_tree_item_edited"]

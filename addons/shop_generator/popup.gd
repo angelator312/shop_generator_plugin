@@ -144,7 +144,7 @@ func _on_generate_pressed() -> void:
 	var stats_types:Array=ProjectSettings.get_setting(project_setting_for_stat_types,[])
 	var stats_defaults=ProjectSettings.get_setting(project_setting_for_stat_defaults,[])
 	var stats_variable_names:Array=stats_names.map(func(el:String):return el.replace(" ","_").to_lower())
-	var shop_vars:={
+	var shop_vars:Dictionary[String,String]={
 		"STATS_KEYS":'=["'+'","'.join(stats_names)+'"]',
 		"STATS_VALUES":'=["'+'","'.join(stats_variable_names)+'"]',
 		#"IS_DEBUG_ADD_MONEY":"", - is there add 1000 money button
@@ -152,6 +152,8 @@ func _on_generate_pressed() -> void:
 		#"ON_QUIT":"GlobalFunctions.save_shop_resource(shop_resources)", - things before scene changing, there us shop_resources variable with everything for the shop
 		
 	}
+	if $CheckBox.button_pressed:
+		shop_vars.get_or_add("IS_DEBUG_ADD_MONEY","")
 	use_template_on(path_for_new_shop_script,shop_vars)
 	
 	#ShopStats.gd:
