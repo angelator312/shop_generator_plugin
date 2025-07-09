@@ -14,6 +14,9 @@ const path_for_resources=path_for_addon+"templates/resources/"
 var regex_str="res://"
 const arr_of_types:Array[String]=["Vector2","float","int","String"]
 
+func _ready() -> void:
+	_on_toggled_stats_or_upgrade_types(false)
+
 #For Line edit:
 func _on_line_edit_editing_toggled(toggled_on: bool) -> void:
 	if toggled_on:return
@@ -122,5 +125,13 @@ func remove_dir_recursively(path:String)->void:
 func _on_toggled_stats_or_upgrade_types(toggled_on: bool) -> void:
 	if toggled_on:
 		#TODO:Switch to upgrade types
+		$Stats.visible=false
+		$TypesOfUpgrades.visible=true
+		$TypesOfUpgrades._ready()
+		%StatsOrUpgradeTypes.text="Upgrade types"
 		return
 	#TODO: Switch to stats 
+	%StatsOrUpgradeTypes.text="Stats"
+	$Stats.visible=true
+	$TypesOfUpgrades.visible=false
+	$Stats._ready()
