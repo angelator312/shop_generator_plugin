@@ -70,8 +70,7 @@ func _on_generate_pressed() -> void:
 	use_template_on(path_to_shop_resource_child,{})
 	#GlobalTypes:
 	var types_of_upgrades:Array=ProjectSettings.get_setting(project_setting_for_upgrade_types,["Item"])
-	types_of_upgrades.all(func(a:String):return a.replace(" ","_").to_upper())
-	print("types_of_upgrades:",",".join(types_of_upgrades))
+	types_of_upgrades=types_of_upgrades.map(func(a:String):return a.replace(" ","_").to_upper())
 	use_template_on(path_to_global_types,{
 		"TYPES_OF_UPGRADES":",".join(types_of_upgrades)
 	})

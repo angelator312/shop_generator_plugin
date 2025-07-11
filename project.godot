@@ -18,7 +18,6 @@ config/icon="res://icon.svg"
 [autoload]
 
 GlobalFunctions="*res://globals/GlobalFunctions.gd"
-GlobalTypes="*res://globals/GlobalTypes.gd"
 GlobalVariables="*res://globals/GlobalVariables.gd"
 GlobalLocalization="*res://globals/GlobalLocalization.gd"
 
