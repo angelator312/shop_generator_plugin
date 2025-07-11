@@ -5,6 +5,7 @@ const DELETE_BUTTON = preload("res://addons/shop_generator/delete_button.png")
 const project_setting_for_stats_name:="shop_generator/stats"#Name of Stat -> Mone Multiplayer
 const project_setting_for_stat_types:="shop_generator/stat_types" # Vector2,float...
 const project_setting_for_stat_defaults:="shop_generator/stat_defaults" # 0.0;0;Vector2(-1,-1)
+const project_setting_for_upgrade_types:="shop_generator/types_of_upgrades"
 const project_setting_for_items_stats_or_upgrades:="shop_generator/stats_or_upgrade_types_or_items" 
 # Paths:
 const path_for_addon:="res://addons/shop_generator/"
@@ -45,12 +46,15 @@ func _on_generate_pressed() -> void:
 	var path_for_new_shop:String="res://"+shop_path_now
 	var path_for_new_resources:String="res://"+resources_path_now
 	var new_shop_stats_path=path_for_new_resources+"shop_stats.gd"
-	var path_for_new_shop_script:=path_for_new_shop+"shop.gd"
-	var path_to_button_script:=path_for_new_shop+"button/button.gd"
+	#Resource things:
 	var path_to_shop_objects:=path_for_new_resources+"shop_objects.gd"
 	var path_to_shop_resource:=path_for_new_resources+"shop_resource.gd"
 	var path_to_shop_resource_child:=path_for_new_resources+"shop_resource_child.gd"
 	var path_to_item:=path_for_new_resources+"Item.gd"
+	var path_to_global_types:=path_for_new_resources+"GlobalTypes.gd"
+	#Shop things:
+	var path_for_new_shop_script:=path_for_new_shop+"shop.gd"
+	var path_to_button_script:=path_for_new_shop+"button/button.gd"
 	
 	DirAccess.make_dir_recursive_absolute("res://"+shop_path_now)
 	DirAccess.make_dir_recursive_absolute(path_for_new_resources)
@@ -64,7 +68,13 @@ func _on_generate_pressed() -> void:
 	use_template_on(path_to_shop_objects,{})
 	use_template_on(path_to_shop_resource,{})
 	use_template_on(path_to_shop_resource_child,{})
-	
+	#GlobalTypes:
+	var types_of_upgrades:Array=ProjectSettings.get_setting(project_setting_for_upgrade_types,["Item"])
+	types_of_upgrades.all(func(a:String):return a.replace(" ","_").to_upper())
+	print("types_of_upgrades:",",".join(types_of_upgrades))
+	use_template_on(path_to_global_types,{
+		"TYPES_OF_UPGRADES":",".join(types_of_upgrades)
+	})
 	#Shop.gd:
 	var stats_names:Array=ProjectSettings.get_setting(project_setting_for_stats_name,[])
 	var stats_types:Array=ProjectSettings.get_setting(project_setting_for_stat_types,[])
@@ -152,7 +162,6 @@ func toggle_stats_upgrade_and_items(toggled_on: int) -> void:
 		2:
 			#TODO:Switch to items tab 
 			pass
-
 
 func _on_stats_or_upgrade_types_item_selected(index: int) -> void:
 	toggle_stats_upgrade_and_items(index)
