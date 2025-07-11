@@ -190,6 +190,7 @@ offset_left = 451.0
 offset_top = 145.0
 offset_right = 687.0
 offset_bottom = 176.0
+placeholder_text = "Speed"
 
 [node name="AddType" type="Button" parent="TypesOfUpgrades"]
 layout_mode = 0
@@ -197,7 +198,7 @@ offset_left = 701.0
 offset_top = 146.0
 offset_right = 774.0
 offset_bottom = 177.0
-text = "Add stat"
+text = "Add upgrade type"
 
 [connection signal="editing_toggled" from="ShopPath" to="." method="_on_line_edit_editing_toggled"]
 [connection signal="pressed" from="Generate" to="." method="_on_generate_pressed"]

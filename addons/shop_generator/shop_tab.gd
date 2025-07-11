@@ -13,7 +13,14 @@ const path_for_shop=path_for_addon+"templates/shop/"
 const path_for_resources=path_for_addon+"templates/resources/"
 var regex_str="res://"
 const arr_of_types:Array[String]=["Vector2","float","int","String"]
+var stats_or_upgrade_type:=false
+func _toggle_stats():
+	_on_toggled_stats_or_upgrade_types(false)
+func _toggle_types():
+	_on_toggled_stats_or_upgrade_types(true)
 
+@export_tool_button("Toggle to types") var toggle_types:Callable=_toggle_types
+@export_tool_button("Toggle to stats") var toggle_stats:Callable=_toggle_stats
 func _ready() -> void:
 	_on_toggled_stats_or_upgrade_types(false)
 
