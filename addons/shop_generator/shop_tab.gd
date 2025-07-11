@@ -62,18 +62,19 @@ func _on_generate_pressed() -> void:
 	copy_dir_recursively(path_for_shop,"res://"+shop_path_now)
 	copy_dir_recursively(path_for_resources,path_for_new_resources)
 	
-	#Small templates:
-	use_template_on(path_to_item,{})
-	use_template_on(path_to_button_script,{})
-	use_template_on(path_to_shop_objects,{})
-	use_template_on(path_to_shop_resource,{})
-	use_template_on(path_to_shop_resource_child,{})
 	#GlobalTypes:
 	var types_of_upgrades:Array=ProjectSettings.get_setting(project_setting_for_upgrade_types,["Item"])
 	types_of_upgrades=types_of_upgrades.map(func(a:String):return a.replace(" ","_").to_upper())
 	use_template_on(path_to_global_types,{
 		"TYPES_OF_UPGRADES":",".join(types_of_upgrades)
 	})
+	
+	#Small templates:
+	use_template_on(path_to_shop_resource_child,{})
+	use_template_on(path_to_shop_resource,{})
+	use_template_on(path_to_shop_objects,{})
+	use_template_on(path_to_button_script,{})
+	use_template_on(path_to_item,{})
 	#Shop.gd:
 	var stats_names:Array=ProjectSettings.get_setting(project_setting_for_stats_name,[])
 	var stats_types:Array=ProjectSettings.get_setting(project_setting_for_stat_types,[])
@@ -85,7 +86,7 @@ func _on_generate_pressed() -> void:
 		#"IS_DEBUG_ADD_MONEY":"", - is there add 1000 money button
 		#"CHANGE_SCENE":'SceneManager.change_scene' - change the scene
 		#"ON_QUIT":"GlobalFunctions.save_shop_resource(shop_resources)", - things before scene changing, there us shop_resources variable with everything for the shop
-		
+		"FILENAME_OF_SHOP_SAVE":"shopsave.tres"
 	}
 	if $CheckBox.button_pressed:
 		shop_vars.get_or_add("IS_DEBUG_ADD_MONEY","")
