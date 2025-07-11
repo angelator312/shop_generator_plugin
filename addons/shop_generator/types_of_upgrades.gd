@@ -18,8 +18,8 @@ var property_info={
 	"hint_string":"String"
 }
 func _ready() -> void:
-	ProjectSettings.add_property_info(property_info)
-	ProjectSettings.save()
+	#ProjectSettings.add_property_info(property_info)
+	#ProjectSettings.save()
 	#print(get_types_of_upgrades() is Array[String])
 	generate_tree(get_types_of_upgrades())
 
@@ -50,7 +50,7 @@ func _on_add_type_pressed() -> void:
 
 func _on_tree_item_edited() -> void:
 	var types:=get_types_of_upgrades()
-	var root:=tree.get_root()
+	var root:TreeItem=tree.get_root()
 	var i:=0
 	var find_custom=func (a:int,s:String):
 		var i2=types.find(s)
@@ -62,4 +62,5 @@ func _on_tree_item_edited() -> void:
 			types[i]=e.get_text(0)
 		else:
 			e.set_text(0,types[i])
+		i+=1
 	set_types_of_upgrades(types)
