@@ -130,15 +130,19 @@ func remove_dir_recursively(path:String)->void:
 	source_dir.remove("")
 
 func _on_toggled_stats_or_upgrade_types(toggled_on: bool) -> void:
-	if toggled_on:
-		#TODO:Switch to upgrade types
-		$Stats.visible=false
-		$TypesOfUpgrades.visible=true
-		$TypesOfUpgrades._ready()
-		%StatsOrUpgradeTypes.text="Upgrade types"
-		return
-	#TODO: Switch to stats 
-	%StatsOrUpgradeTypes.text="Stats"
-	$Stats.visible=true
-	$TypesOfUpgrades.visible=false
-	$Stats._ready()
+	toggle_stats_upgrade_and_items(toggled_on)
+func toggle_stats_upgrade_and_items(toggled_on: int) -> void:
+	match toggled_on:
+		0:
+			%StatsOrUpgradeTypes.text="Stats"
+			$Stats.visible=true
+			$TypesOfUpgrades.visible=false
+			$Stats._ready()
+		1:
+			$Stats.visible=false
+			$TypesOfUpgrades.visible=true
+			$TypesOfUpgrades._ready()
+			%StatsOrUpgradeTypes.text="Upgrade types"
+		2:
+			#TODO:Switch to items tab 
+			pass
