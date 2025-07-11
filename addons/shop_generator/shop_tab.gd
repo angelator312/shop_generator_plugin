@@ -86,7 +86,7 @@ func _on_generate_pressed() -> void:
 		#"IS_DEBUG_ADD_MONEY":"", - is there add 1000 money button
 		#"CHANGE_SCENE":'SceneManager.change_scene' - change the scene
 		#"ON_QUIT":"GlobalFunctions.save_shop_resource(shop_resources)", - things before scene changing, there us shop_resources variable with everything for the shop
-		"FILENAME_OF_SHOP_SAVE":"shopsave.tres"
+		"SHOP_SAVE_FILENAME":"='shopsave.tres'"
 	}
 	if $CheckBox.button_pressed:
 		shop_vars.get_or_add("IS_DEBUG_ADD_MONEY","")
