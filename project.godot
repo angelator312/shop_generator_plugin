@@ -31,3 +31,4 @@ enabled=PackedStringArray("res://addons/kenyoni/plugin_reloader/plugin.cfg", "re
 stat_defaults=["0.0", "0.0"]
 stats=["b2", "money"]
 stat_types=[1.0, 1]
+types_of_upgrades=["Item", "a", "assa"]

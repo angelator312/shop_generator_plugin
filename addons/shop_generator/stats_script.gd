@@ -1,7 +1,6 @@
 @tool
 extends Control
 @onready var tree: Tree = $Tree
-const DELETE_BUTTON = preload("res://addons/shop_generator/delete_button.png")
 # Vars for project settings
 const project_setting_for_stats_name:="shop_generator/stats"#Name of Stat -> Mone Multiplayer
 const project_setting_for_stat_types:="shop_generator/stat_types" # Vector2,float...
@@ -15,6 +14,7 @@ const path_for_resources=path_for_addon+"templates/resources/"
 var regex_str="res://"
 const arr_of_types:Array[String]=["Vector2","float","int","String"]
 
+const DELETE_BUTTON = preload(path_for_addon+"delete_button.png")
 func _ready() -> void:
 	_on_reload_button_pressed()
 	%Dropdown.clear()

@@ -74,7 +74,7 @@ layout_mode = 0
 offset_left = 153.0
 offset_right = 193.0
 offset_bottom = 23.0
-text = "Stats"
+text = "Upgrade types"
 
 [node name="Instructions" type="RichTextLabel" parent="."]
 layout_mode = 0
@@ -110,6 +110,7 @@ offset_right = 336.0
 offset_bottom = 24.0
 
 [node name="Stats" type="Control" parent="."]
+visible = false
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
@@ -178,7 +179,6 @@ offset_bottom = 177.0
 placeholder_text = "Default value"
 
 [node name="TypesOfUpgrades" type="Control" parent="."]
-visible = false
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
@@ -200,6 +200,13 @@ offset_right = 774.0
 offset_bottom = 177.0
 text = "Add upgrade type"
 
+[node name="Tree" type="Tree" parent="TypesOfUpgrades"]
+offset_left = 23.0
+offset_top = 40.0
+offset_right = 337.0
+offset_bottom = 163.0
+hide_root = true
+
 [connection signal="editing_toggled" from="ShopPath" to="." method="_on_line_edit_editing_toggled"]
 [connection signal="pressed" from="Generate" to="." method="_on_generate_pressed"]
 [connection signal="editing_toggled" from="ResourcePath" to="." method="_on_line_edit_editing_toggled"]
@@ -209,3 +216,6 @@ text = "Add upgrade type"
 [connection signal="item_edited" from="Stats/Tree" to="Stats" method="_on_tree_item_edited"]
 [connection signal="pressed" from="Stats/ReloadButton" to="Stats" method="_on_reload_button_pressed"]
 [connection signal="pressed" from="Stats/AddStat" to="Stats" method="add_stat"]
+[connection signal="pressed" from="TypesOfUpgrades/AddType" to="TypesOfUpgrades" method="_on_add_type_pressed"]
+[connection signal="button_clicked" from="TypesOfUpgrades/Tree" to="TypesOfUpgrades" method="_on_tree_button_clicked"]
+[connection signal="item_edited" from="TypesOfUpgrades/Tree" to="TypesOfUpgrades" method="_on_tree_item_edited"]
