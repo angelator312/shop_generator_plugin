@@ -7,6 +7,8 @@ var _stats:Dictionary[String,String]
 var stats_values:Array[String]#TEMPLATE:STATS_VALUES #=_stats.values()
 var stats_keys:Array[String]#TEMPLATE:STATS_KEYS  #=_stats.keys()
 var stats_size:=stats_keys.size()
+var all_items:Array[Item]
+var all_items_sz:=all_items.size()
 func set_static_labels():
 	var tree:Tree=$Tree
 	#print(tree.get_first_child())
@@ -50,8 +52,8 @@ func make_static_labels():
 	#speed_child.set_text(0,"Speed:"+str(GlobalVariables.shop_stats.player_speed))
 	#max_health_child.set_text(0,"Max HP:"+str(GlobalVariables.shop_stats.max_player_health))
 	#damage_multiplication_child.set_text(0,"Damage Multiplication:"+str(GlobalVariables.shop_stats.attack_damage_umn))
-	for e in GlobalVariables.all_items_sz:
-		var weapon_resource:=GlobalVariables.all_items[e]
+	for e in all_items_sz:
+		var weapon_resource:=all_items[e]
 		var first_weapon=tree.create_item()
 		first_weapon.collapsed=true
 		var tmp_str=weapon_resource.name+"  "
@@ -69,7 +71,7 @@ func update_buttons_of_deals():
 	for e in %ContainerOfButtons.get_children():
 		if e is ButtonWithResource:
 			if e.type==GlobalTypes.types_of_upgrades.ITEM:
-				if GlobalVariables.shop_stats.items_sz>=GlobalVariables.all_items_sz:
+				if GlobalVariables.shop_stats.items_sz>=all_items_sz:
 					shop_resources.disabled_from_final[e.resourceInd]=true
 				
 			#print(e.text," ",shop_resources.disabled_from_final[e.resourceInd])

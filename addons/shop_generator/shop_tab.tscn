@@ -65,9 +65,7 @@ offset_top = 304.0
 offset_right = 1145.0
 offset_bottom = 420.0
 text = "#GlobalVariables:
-var shop_stats:=ShopStats.new()
-var all_items:Array[Item]
-var all_items_sz:=all_items.size()"
+var shop_stats:=ShopStats.new()"
 editable = false
 
 [node name="StatsOrUpgradeTypes" type="Label" parent="."]
@@ -76,7 +74,7 @@ layout_mode = 0
 offset_left = 153.0
 offset_right = 193.0
 offset_bottom = 23.0
-text = "Stats:"
+text = "Stats"
 
 [node name="Instructions" type="RichTextLabel" parent="."]
 layout_mode = 0
@@ -194,6 +192,7 @@ offset_right = 687.0
 offset_bottom = 176.0
 
 [node name="AddType" type="Button" parent="TypesOfUpgrades"]
+layout_mode = 0
 offset_left = 701.0
 offset_top = 146.0
 offset_right = 774.0
