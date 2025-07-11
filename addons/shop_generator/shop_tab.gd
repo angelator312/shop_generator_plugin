@@ -5,6 +5,7 @@ const DELETE_BUTTON = preload("res://addons/shop_generator/delete_button.png")
 const project_setting_for_stats_name:="shop_generator/stats"#Name of Stat -> Mone Multiplayer
 const project_setting_for_stat_types:="shop_generator/stat_types" # Vector2,float...
 const project_setting_for_stat_defaults:="shop_generator/stat_defaults" # 0.0;0;Vector2(-1,-1)
+const project_setting_for_items_stats_or_upgrades:="shop_generator/stats_or_upgrade_types_or_items" 
 # Paths:
 const path_for_addon:="res://addons/shop_generator/"
 const shop_path_default="shop/"
@@ -21,8 +22,15 @@ func _toggle_types():
 
 @export_tool_button("Toggle to types") var toggle_types:Callable=_toggle_types
 @export_tool_button("Toggle to stats") var toggle_stats:Callable=_toggle_stats
+#Functions for Godot tree
+
 func _ready() -> void:
-	_on_toggled_stats_or_upgrade_types(false)
+	stats_or_upgrade_types_or_items=ProjectSettings.get_setting(project_setting_for_items_stats_or_upgrades,0)
+	toggle_stats_upgrade_and_items(stats_or_upgrade_types_or_items)
+	
+
+func _exit_tree() -> void:
+	ProjectSettings.set_setting(project_setting_for_items_stats_or_upgrades,stats_or_upgrade_types_or_items)
 
 #For Line edit:
 func _on_line_edit_editing_toggled(toggled_on: bool) -> void:
