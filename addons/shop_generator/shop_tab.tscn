@@ -204,7 +204,7 @@ text = "Add upgrade type"
 offset_left = 23.0
 offset_top = 40.0
 offset_right = 337.0
-offset_bottom = 163.0
+offset_bottom = 245.0
 hide_root = true
 
 [connection signal="editing_toggled" from="ShopPath" to="." method="_on_line_edit_editing_toggled"]

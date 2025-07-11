@@ -13,11 +13,11 @@ const path_for_shop=path_for_addon+"templates/shop/"
 const path_for_resources=path_for_addon+"templates/resources/"
 var regex_str="res://"
 const arr_of_types:Array[String]=["Vector2","float","int","String"]
-var stats_or_upgrade_type:=false
+var stats_or_upgrade_types_or_items:=0
 func _toggle_stats():
-	_on_toggled_stats_or_upgrade_types(false)
+	toggle_stats_upgrade_and_items(0)
 func _toggle_types():
-	_on_toggled_stats_or_upgrade_types(true)
+	toggle_stats_upgrade_and_items(1)
 
 @export_tool_button("Toggle to types") var toggle_types:Callable=_toggle_types
 @export_tool_button("Toggle to stats") var toggle_stats:Callable=_toggle_stats
@@ -132,6 +132,7 @@ func remove_dir_recursively(path:String)->void:
 func _on_toggled_stats_or_upgrade_types(toggled_on: bool) -> void:
 	toggle_stats_upgrade_and_items(toggled_on)
 func toggle_stats_upgrade_and_items(toggled_on: int) -> void:
+	stats_or_upgrade_types_or_items=toggled_on
 	match toggled_on:
 		0:
 			%StatsOrUpgradeTypes.text="Stats"
